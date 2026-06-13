@@ -1,0 +1,178 @@
+[
+  {
+    "id": "Ak-kit",
+    "title": "AK Kit",
+    "type": "packs",
+    "description": "",
+    "price": 10,
+    "currency": "usd",
+    "currencySymbol": "$",
+    "stripePriceId": "",
+    "mode": "payment",
+    "interval": "month",
+    "allowMultiple": true,
+    "active": true,
+    "serverDiscounts": {},
+    "discordRoleIds": [],
+    "discordMessages": []
+  },
+  {
+    "id": "que-skip",
+    "title": "Que Skip",
+    "type": "vip",
+    "description": "",
+    "price": 2,
+    "currency": "usd",
+    "currencySymbol": "$",
+    "stripePriceId": "",
+    "mode": "payment",
+    "interval": "month",
+    "allowMultiple": true,
+    "active": true,
+    "serverDiscounts": {},
+    "discordRoleIds": [],
+    "discordMessages": [
+      {
+        "channelId": "1505392189881061406",
+        "content": "<@{discordid}> queskip 1"
+      }
+    ]
+  },
+  {
+    "id": "supr-nova",
+    "title": "Super Nova",
+    "type": "ranks",
+    "description": "",
+    "price": 19.99,
+    "currency": "usd",
+    "currencySymbol": "$",
+    "stripePriceId": "",
+    "mode": "payment",
+    "interval": "month",
+    "allowMultiple": false,
+    "active": true,
+    "serverDiscounts": {},
+    "discordRoleIds": [
+      "1514456651506389034"
+    ],
+    "discordMessages": []
+  },
+  {
+    "id": "v-walker",
+    "title": "Void Walker",
+    "type": "ranks",
+    "description": "",
+    "price": 14.5,
+    "currency": "usd",
+    "currencySymbol": "$",
+    "stripePriceId": "",
+    "mode": "payment",
+    "interval": "month",
+    "allowMultiple": false,
+    "active": true,
+    "serverDiscounts": {},
+    "discordRoleIds": [
+      "1514456289537818634"
+    ],
+    "discordMessages": [
+      {
+        "channelId": "1505392189881061406",
+        "content": "Bought Void walker"
+      }
+    ]
+  },
+  {
+    "id": "inferno-rank",
+    "title": "Inferno",
+    "type": "ranks",
+    "description": "",
+    "price": 12.99,
+    "currency": "usd",
+    "currencySymbol": "$",
+    "stripePriceId": "",
+    "mode": "payment",
+    "interval": "month",
+    "allowMultiple": false,
+    "active": true,
+    "serverDiscounts": {},
+    "discordRoleIds": [
+      "1514455570776723506"
+    ],
+    "discordMessages": [
+      {
+        "channelId": "1505392189881061406",
+        "content": "Bought inferno rank"
+      }
+    ]
+  },
+  {
+    "id": "vip=fullmetal",
+    "title": "Full Metal | VIP",
+    "type": "vip",
+    "description": "",
+    "price": 9.99,
+    "currency": "usd",
+    "currencySymbol": "$",
+    "stripePriceId": "",
+    "mode": "payment",
+    "interval": "month",
+    "allowMultiple": false,
+    "active": true,
+    "serverDiscounts": {},
+    "discordRoleIds": [
+      "1507116725274153010",
+      "1505741770154184704"
+    ],
+    "discordMessages": []
+  },
+  {
+    "id": "vip-road",
+    "title": "Roadsign Warriors | VIP",
+    "type": "vip",
+    "description": "",
+    "price": 7.99,
+    "currency": "usd",
+    "currencySymbol": "$",
+    "stripePriceId": "",
+    "mode": "payment",
+    "interval": "month",
+    "allowMultiple": false,
+    "active": true,
+    "serverDiscounts": {},
+    "discordRoleIds": [
+      "1505741770154184704",
+      "1507117631499534530"
+    ],
+    "discordMessages": [
+      {
+        "channelId": "1505392189881061406",
+        "content": "Bought Roadsign Warriors"
+      }
+    ]
+  },
+  {
+    "id": "hazi-vip",
+    "title": "Hazmat | VIP",
+    "type": "vip",
+    "description": "",
+    "price": 4.99,
+    "currency": "usd",
+    "currencySymbol": "$",
+    "stripePriceId": "",
+    "mode": "subscription",
+    "interval": "month",
+    "allowMultiple": false,
+    "active": true,
+    "serverDiscounts": {},
+    "discordRoleIds": [
+      "1507117813548978176",
+      "1505741770154184704"
+    ],
+    "discordMessages": [
+      {
+        "channelId": "1505392189881061406",
+        "content": "Bought Hazmat | VIP"
+      }
+    ]
+  }
+]

@@ -1,0 +1,1382 @@
+[
+  {
+    "id": "inferno-weapons",
+    "name": "Inferno weapons",
+    "weapons": [
+      {
+        "name": "12 Gauge Buckshot",
+        "code": "ammo.shotgun",
+        "category": "AMMO",
+        "quantity": 1
+      }
+    ],
+    "resources": [],
+    "kit": [],
+    "updatedAt": 1781145456011
+  },
+  {
+    "id": "ddd-resources",
+    "name": "ddd Resources",
+    "weapons": [],
+    "resources": [
+      {
+        "name": "Pistol Bullet",
+        "code": "ammo.pistol",
+        "category": "AMMO",
+        "quantity": 1
+      }
+    ],
+    "kit": [],
+    "updatedAt": 1780951927678
+  },
+  {
+    "id": "ss-kit",
+    "name": "ss Kit",
+    "weapons": [],
+    "resources": [],
+    "kit": [
+      {
+        "name": "Pistol Bullet",
+        "code": "ammo.pistol",
+        "category": "AMMO",
+        "quantity": 1
+      }
+    ],
+    "updatedAt": 1780806087257
+  },
+  {
+    "id": "ss-resources",
+    "name": "ss Resources",
+    "weapons": [],
+    "resources": [
+      {
+        "name": "Pistol Bullet",
+        "code": "ammo.pistol",
+        "category": "AMMO",
+        "quantity": 1
+      }
+    ],
+    "kit": [],
+    "updatedAt": 1780806052610
+  },
+  {
+    "id": "untitled-kit",
+    "name": "Untitled Kit",
+    "weapons": [],
+    "resources": [],
+    "kit": [
+      {
+        "name": "Pistol Bullet",
+        "code": "ammo.pistol",
+        "category": "AMMO",
+        "quantity": 1
+      }
+    ],
+    "updatedAt": 1780806859632
+  },
+  {
+    "id": "essentials-kit",
+    "name": "Essentials Kit",
+    "weapons": [],
+    "resources": [],
+    "kit": [
+      {
+        "name": "Low Grade Fuel",
+        "code": "lowgradefuel",
+        "category": "RESOURCES",
+        "quantity": 20000
+      },
+      {
+        "name": "Cloth",
+        "code": "cloth",
+        "category": "RESOURCES",
+        "quantity": 20000
+      },
+      {
+        "name": "Leather",
+        "code": "leather",
+        "category": "RESOURCES",
+        "quantity": 5000
+      },
+      {
+        "name": "Metal Pipe",
+        "code": "metalpipe",
+        "category": "COMPONENTS",
+        "quantity": 300
+      },
+      {
+        "name": "Sewing Kit",
+        "code": "sewingkit",
+        "category": "COMPONENTS",
+        "quantity": 500
+      },
+      {
+        "name": "Gears",
+        "code": "gears",
+        "category": "COMPONENTS",
+        "quantity": 120
+      },
+      {
+        "name": "Auto Turret",
+        "code": "autoturret",
+        "category": "ELECTRICAL",
+        "quantity": 12
+      },
+      {
+        "name": "Bed",
+        "code": "bed",
+        "category": "ITEMS",
+        "quantity": 2
+      },
+      {
+        "name": "Scrap",
+        "code": "scrap",
+        "category": "RESOURCES",
+        "quantity": 15000
+      },
+      {
+        "name": "Charcoal",
+        "code": "charcoal",
+        "category": "RESOURCES",
+        "quantity": 200000
+      },
+      {
+        "name": "Rifle Body",
+        "code": "riflebody",
+        "category": "COMPONENTS",
+        "quantity": 30
+      },
+      {
+        "name": "Tech Trash",
+        "code": "techparts",
+        "category": "COMPONENTS",
+        "quantity": 60
+      },
+      {
+        "name": "Test Generator",
+        "code": "electric.generator.small",
+        "category": "ELECTRICAL",
+        "quantity": 1
+      }
+    ],
+    "updatedAt": 1774878085070
+  },
+  {
+    "id": "defender-kit",
+    "name": "Defender Kit",
+    "weapons": [],
+    "resources": [],
+    "kit": [
+      {
+        "name": "Metal Chest Plate",
+        "code": "metal.plate.torso",
+        "category": "ATTIRE",
+        "quantity": 5
+      },
+      {
+        "name": "Metal Facemask",
+        "code": "metal.facemask",
+        "category": "ATTIRE",
+        "quantity": 5
+      },
+      {
+        "name": "Hoodie",
+        "code": "hoodie",
+        "category": "ATTIRE",
+        "quantity": 5
+      },
+      {
+        "name": "Road Sign Kilt",
+        "code": "roadsign.kilt",
+        "category": "ATTIRE",
+        "quantity": 5
+      },
+      {
+        "name": "Tactical Gloves",
+        "code": "tactical.gloves",
+        "category": "ATTIRE",
+        "quantity": 5
+      },
+      {
+        "name": "Pants",
+        "code": "pants",
+        "category": "ATTIRE",
+        "quantity": 5
+      },
+      {
+        "name": "Assault Rifle",
+        "code": "rifle.ak",
+        "category": "WEAPONS",
+        "quantity": 5
+      },
+      {
+        "name": "M4 Shotgun",
+        "code": "shotgun.m4",
+        "category": "WEAPONS",
+        "quantity": 1
+      },
+      {
+        "name": "Medical Syringe",
+        "code": "syringe.medical",
+        "category": "MEDICAL",
+        "quantity": 42
+      },
+      {
+        "name": "Large Medkit",
+        "code": "largemedkit",
+        "category": "MEDICAL",
+        "quantity": 3
+      },
+      {
+        "name": "12 Gauge Incendiary Shell",
+        "code": "ammo.shotgun.fire",
+        "category": "AMMO",
+        "quantity": 48
+      },
+      {
+        "name": "5.56 Rifle Ammo",
+        "code": "ammo.rifle",
+        "category": "AMMO",
+        "quantity": 2400
+      },
+      {
+        "name": "High Velocity Rocket",
+        "code": "ammo.rocket.hv",
+        "category": "AMMO",
+        "quantity": 24
+      },
+      {
+        "name": "Incendiary Rocket",
+        "code": "ammo.rocket.fire",
+        "category": "AMMO",
+        "quantity": 24
+      },
+      {
+        "name": "40mm HE Grenade",
+        "code": "ammo.grenadelauncher.he",
+        "category": "AMMO",
+        "quantity": 24
+      },
+      {
+        "name": "Weapon Lasersight",
+        "code": "weapon.mod.lasersight",
+        "category": "WEAPONS",
+        "quantity": 2
+      },
+      {
+        "name": "4x Zoom Scope",
+        "code": "weapon.mod.small.scope",
+        "category": "WEAPONS",
+        "quantity": 1
+      },
+      {
+        "name": "Holosight",
+        "code": "weapon.mod.holosight",
+        "category": "WEAPONS",
+        "quantity": 2
+      },
+      {
+        "name": "Multiple Grenade Launcher",
+        "code": "multiplegrenadelauncher",
+        "category": "WEAPONS",
+        "quantity": 1
+      },
+      {
+        "name": "Rocket Launcher",
+        "code": "rocket.launcher",
+        "category": "WEAPONS",
+        "quantity": 1
+      }
+    ],
+    "updatedAt": 1774873880340
+  },
+  {
+    "id": "raider-kit",
+    "name": "Raider Kit",
+    "weapons": [],
+    "resources": [],
+    "kit": [
+      {
+        "name": "Metal Chest Plate",
+        "code": "metal.plate.torso",
+        "category": "ATTIRE",
+        "quantity": 1
+      },
+      {
+        "name": "Metal Facemask",
+        "code": "metal.facemask",
+        "category": "ATTIRE",
+        "quantity": 1
+      },
+      {
+        "name": "Hoodie",
+        "code": "hoodie",
+        "category": "ATTIRE",
+        "quantity": 1
+      },
+      {
+        "name": "Road Sign Kilt",
+        "code": "roadsign.kilt",
+        "category": "ATTIRE",
+        "quantity": 1
+      },
+      {
+        "name": "Tactical Gloves",
+        "code": "tactical.gloves",
+        "category": "ATTIRE",
+        "quantity": 1
+      },
+      {
+        "name": "Pants",
+        "code": "pants",
+        "category": "ATTIRE",
+        "quantity": 1
+      },
+      {
+        "name": "Assault Rifle",
+        "code": "rifle.ak",
+        "category": "WEAPONS",
+        "quantity": 1
+      },
+      {
+        "name": "High External Wooden Wall",
+        "code": "wall.external.high",
+        "category": "CONSTRUCTION",
+        "quantity": 6
+      },
+      {
+        "name": "5.56 Rifle Ammo",
+        "code": "ammo.rifle",
+        "category": "AMMO",
+        "quantity": 500
+      },
+      {
+        "name": "Medical Syringe",
+        "code": "syringe.medical",
+        "category": "MEDICAL",
+        "quantity": 18
+      },
+      {
+        "name": "Large Medkit",
+        "code": "largemedkit",
+        "category": "MEDICAL",
+        "quantity": 3
+      },
+      {
+        "name": "Sleeping Bag",
+        "code": "sleepingbag",
+        "category": "ITEMS",
+        "quantity": 6
+      },
+      {
+        "name": "Weapon Lasersight",
+        "code": "weapon.mod.lasersight",
+        "category": "WEAPONS",
+        "quantity": 1
+      },
+      {
+        "name": "4x Zoom Scope",
+        "code": "weapon.mod.small.scope",
+        "category": "WEAPONS",
+        "quantity": 1
+      },
+      {
+        "name": "Holosight",
+        "code": "weapon.mod.holosight",
+        "category": "WEAPONS",
+        "quantity": 1
+      },
+      {
+        "name": "Multiple Grenade Launcher",
+        "code": "multiplegrenadelauncher",
+        "category": "WEAPONS",
+        "quantity": 1
+      },
+      {
+        "name": "40mm Smoke Grenade",
+        "code": "ammo.grenadelauncher.smoke",
+        "category": "AMMO",
+        "quantity": 24
+      },
+      {
+        "name": "40mm HE Grenade",
+        "code": "ammo.grenadelauncher.he",
+        "category": "AMMO",
+        "quantity": 24
+      },
+      {
+        "name": "Rocket Launcher",
+        "code": "rocket.launcher",
+        "category": "WEAPONS",
+        "quantity": 6
+      },
+      {
+        "name": "Rocket",
+        "code": "ammo.rocket.basic",
+        "category": "AMMO",
+        "quantity": 250
+      },
+      {
+        "name": "High Velocity Rocket",
+        "code": "ammo.rocket.hv",
+        "category": "AMMO",
+        "quantity": 60
+      },
+      {
+        "name": "MLRS Rocket",
+        "code": "ammo.rocket.mlrs",
+        "category": "AMMO",
+        "quantity": 24
+      },
+      {
+        "name": "Explosive 5.56 Rifle Ammo",
+        "code": "ammo.rifle.explosive",
+        "category": "AMMO",
+        "quantity": 256
+      },
+      {
+        "name": "Timed Explosive Charge",
+        "code": "explosive.timed",
+        "category": "TOOLS",
+        "quantity": 30
+      }
+    ],
+    "updatedAt": 1774896853691
+  },
+  {
+    "id": "warrior-kit",
+    "name": "Warrior Kit",
+    "weapons": [],
+    "resources": [],
+    "kit": [
+      {
+        "name": "Metal Chest Plate",
+        "code": "metal.plate.torso",
+        "category": "ATTIRE",
+        "quantity": 12
+      },
+      {
+        "name": "Metal Facemask",
+        "code": "metal.facemask",
+        "category": "ATTIRE",
+        "quantity": 12
+      },
+      {
+        "name": "Hoodie",
+        "code": "hoodie",
+        "category": "ATTIRE",
+        "quantity": 12
+      },
+      {
+        "name": "Road Sign Kilt",
+        "code": "roadsign.kilt",
+        "category": "ATTIRE",
+        "quantity": 12
+      },
+      {
+        "name": "Tactical Gloves",
+        "code": "tactical.gloves",
+        "category": "ATTIRE",
+        "quantity": 12
+      },
+      {
+        "name": "Pants",
+        "code": "pants",
+        "category": "ATTIRE",
+        "quantity": 12
+      },
+      {
+        "name": "Assault Rifle",
+        "code": "rifle.ak",
+        "category": "WEAPONS",
+        "quantity": 12
+      },
+      {
+        "name": "M249",
+        "code": "lmg.m249",
+        "category": "WEAPONS",
+        "quantity": 2
+      },
+      {
+        "name": "L96 Rifle",
+        "code": "rifle.l96",
+        "category": "WEAPONS",
+        "quantity": 4
+      },
+      {
+        "name": "HMLMG",
+        "code": "hmlmg",
+        "category": "WEAPONS",
+        "quantity": 8
+      },
+      {
+        "name": "High External Wooden Wall",
+        "code": "wall.external.high",
+        "category": "CONSTRUCTION",
+        "quantity": 24
+      },
+      {
+        "name": "5.56 Rifle Ammo",
+        "code": "ammo.rifle",
+        "category": "AMMO",
+        "quantity": 3600
+      },
+      {
+        "name": "Medical Syringe",
+        "code": "syringe.medical",
+        "category": "MEDICAL",
+        "quantity": 72
+      },
+      {
+        "name": "Large Medkit",
+        "code": "largemedkit",
+        "category": "MEDICAL",
+        "quantity": 12
+      },
+      {
+        "name": "Sleeping Bag",
+        "code": "sleepingbag",
+        "category": "ITEMS",
+        "quantity": 6
+      },
+      {
+        "name": "Weapon Lasersight",
+        "code": "weapon.mod.lasersight",
+        "category": "WEAPONS",
+        "quantity": 14
+      },
+      {
+        "name": "4x Zoom Scope",
+        "code": "weapon.mod.small.scope",
+        "category": "WEAPONS",
+        "quantity": 6
+      },
+      {
+        "name": "Holosight",
+        "code": "weapon.mod.holosight",
+        "category": "WEAPONS",
+        "quantity": 20
+      }
+    ],
+    "updatedAt": 1774873416068
+  },
+  {
+    "id": "starter-kit",
+    "name": "Starter Kit",
+    "weapons": [],
+    "resources": [],
+    "kit": [
+      {
+        "name": "Incendiary Pistol Bullet",
+        "code": "ammo.pistol.fire",
+        "category": "AMMO",
+        "quantity": 1
+      }
+    ],
+    "updatedAt": 1774869609476
+  },
+  {
+    "id": "doomsday-resources",
+    "name": "Doomsday Resources",
+    "weapons": [],
+    "resources": [
+      {
+        "name": "Stones",
+        "code": "stones",
+        "category": "RESOURCES",
+        "quantity": 1500000
+      },
+      {
+        "name": "Wood",
+        "code": "wood",
+        "category": "RESOURCES",
+        "quantity": 750000
+      },
+      {
+        "name": "Charcoal",
+        "code": "charcoal",
+        "category": "RESOURCES",
+        "quantity": 800000
+      },
+      {
+        "name": "Cloth",
+        "code": "cloth",
+        "category": "RESOURCES",
+        "quantity": 25000
+      },
+      {
+        "name": "Low Grade Fuel",
+        "code": "lowgradefuel",
+        "category": "RESOURCES",
+        "quantity": 25000
+      },
+      {
+        "name": "Metal Fragments",
+        "code": "metal.fragments",
+        "category": "RESOURCES",
+        "quantity": 1250000
+      },
+      {
+        "name": "Sulfur",
+        "code": "sulfur",
+        "category": "RESOURCES",
+        "quantity": 1000000
+      },
+      {
+        "name": "High Quality Metal",
+        "code": "metal.refined",
+        "category": "RESOURCES",
+        "quantity": 18500
+      },
+      {
+        "name": "Gears",
+        "code": "gears",
+        "category": "COMPONENTS",
+        "quantity": 150
+      },
+      {
+        "name": "Sewing Kit",
+        "code": "sewingkit",
+        "category": "COMPONENTS",
+        "quantity": 250
+      },
+      {
+        "name": "Tech Trash",
+        "code": "techparts",
+        "category": "COMPONENTS",
+        "quantity": 150
+      },
+      {
+        "name": "Road Signs",
+        "code": "roadsigns",
+        "category": "COMPONENTS",
+        "quantity": 250
+      },
+      {
+        "name": "Leather",
+        "code": "leather",
+        "category": "RESOURCES",
+        "quantity": 3500
+      },
+      {
+        "name": "Metal Spring",
+        "code": "metalspring",
+        "category": "COMPONENTS",
+        "quantity": 150
+      },
+      {
+        "name": "Metal Pipe",
+        "code": "metalpipe",
+        "category": "COMPONENTS",
+        "quantity": 400
+      },
+      {
+        "name": "Rifle Body",
+        "code": "riflebody",
+        "category": "COMPONENTS",
+        "quantity": 65
+      }
+    ],
+    "kit": [],
+    "updatedAt": 1774869392878
+  },
+  {
+    "id": "vanguard-resources",
+    "name": "Vanguard Resources",
+    "weapons": [],
+    "resources": [
+      {
+        "name": "Stones",
+        "code": "stones",
+        "category": "RESOURCES",
+        "quantity": 750000
+      },
+      {
+        "name": "Wood",
+        "code": "wood",
+        "category": "RESOURCES",
+        "quantity": 350000
+      },
+      {
+        "name": "Charcoal",
+        "code": "charcoal",
+        "category": "RESOURCES",
+        "quantity": 400000
+      },
+      {
+        "name": "Cloth",
+        "code": "cloth",
+        "category": "RESOURCES",
+        "quantity": 13000
+      },
+      {
+        "name": "Low Grade Fuel",
+        "code": "lowgradefuel",
+        "category": "RESOURCES",
+        "quantity": 13000
+      },
+      {
+        "name": "Metal Fragments",
+        "code": "metal.fragments",
+        "category": "RESOURCES",
+        "quantity": 550000
+      },
+      {
+        "name": "Sulfur",
+        "code": "sulfur",
+        "category": "RESOURCES",
+        "quantity": 500000
+      },
+      {
+        "name": "High Quality Metal",
+        "code": "metal.refined",
+        "category": "RESOURCES",
+        "quantity": 5000
+      },
+      {
+        "name": "Gears",
+        "code": "gears",
+        "category": "COMPONENTS",
+        "quantity": 75
+      },
+      {
+        "name": "Sewing Kit",
+        "code": "sewingkit",
+        "category": "COMPONENTS",
+        "quantity": 150
+      },
+      {
+        "name": "Tech Trash",
+        "code": "techparts",
+        "category": "COMPONENTS",
+        "quantity": 75
+      },
+      {
+        "name": "Road Signs",
+        "code": "roadsigns",
+        "category": "COMPONENTS",
+        "quantity": 150
+      },
+      {
+        "name": "Leather",
+        "code": "leather",
+        "category": "RESOURCES",
+        "quantity": 1500
+      },
+      {
+        "name": "Metal Spring",
+        "code": "metalspring",
+        "category": "COMPONENTS",
+        "quantity": 50
+      },
+      {
+        "name": "Metal Pipe",
+        "code": "metalpipe",
+        "category": "COMPONENTS",
+        "quantity": 200
+      },
+      {
+        "name": "Rifle Body",
+        "code": "riflebody",
+        "category": "COMPONENTS",
+        "quantity": 30
+      }
+    ],
+    "kit": [],
+    "updatedAt": 1774869151356
+  },
+  {
+    "id": "galactic-resources",
+    "name": "Galactic Resources",
+    "weapons": [],
+    "resources": [
+      {
+        "name": "Incendiary 5.56 Rifle Ammo",
+        "code": "ammo.rifle.incendiary",
+        "category": "AMMO",
+        "quantity": 1
+      },
+      {
+        "name": "Incendiary Pistol Bullet",
+        "code": "ammo.pistol.fire",
+        "category": "AMMO",
+        "quantity": 1
+      }
+    ],
+    "kit": [],
+    "updatedAt": 1780952176279
+  },
+  {
+    "id": "dominion-resources",
+    "name": "Dominion Resources",
+    "weapons": [],
+    "resources": [
+      {
+        "name": "Stones",
+        "code": "stones",
+        "category": "RESOURCES",
+        "quantity": 200000
+      },
+      {
+        "name": "Wood",
+        "code": "wood",
+        "category": "RESOURCES",
+        "quantity": 100000
+      },
+      {
+        "name": "Charcoal",
+        "code": "charcoal",
+        "category": "RESOURCES",
+        "quantity": 85000
+      },
+      {
+        "name": "Cloth",
+        "code": "cloth",
+        "category": "RESOURCES",
+        "quantity": 3500
+      },
+      {
+        "name": "Low Grade Fuel",
+        "code": "lowgradefuel",
+        "category": "RESOURCES",
+        "quantity": 3500
+      },
+      {
+        "name": "Metal Fragments",
+        "code": "metal.fragments",
+        "category": "RESOURCES",
+        "quantity": 125000
+      },
+      {
+        "name": "Sulfur",
+        "code": "sulfur",
+        "category": "RESOURCES",
+        "quantity": 75000
+      },
+      {
+        "name": "High Quality Metal",
+        "code": "metal.refined",
+        "category": "RESOURCES",
+        "quantity": 600
+      },
+      {
+        "name": "Gears",
+        "code": "gears",
+        "category": "COMPONENTS",
+        "quantity": 24
+      },
+      {
+        "name": "Sewing Kit",
+        "code": "sewingkit",
+        "category": "COMPONENTS",
+        "quantity": 60
+      },
+      {
+        "name": "Tech Trash",
+        "code": "techparts",
+        "category": "COMPONENTS",
+        "quantity": 18
+      },
+      {
+        "name": "Road Signs",
+        "code": "roadsigns",
+        "category": "COMPONENTS",
+        "quantity": 60
+      },
+      {
+        "name": "Leather",
+        "code": "leather",
+        "category": "RESOURCES",
+        "quantity": 500
+      },
+      {
+        "name": "Metal Spring",
+        "code": "metalspring",
+        "category": "COMPONENTS",
+        "quantity": 20
+      },
+      {
+        "name": "Metal Pipe",
+        "code": "metalpipe",
+        "category": "COMPONENTS",
+        "quantity": 75
+      },
+      {
+        "name": "Rifle Body",
+        "code": "riflebody",
+        "category": "COMPONENTS",
+        "quantity": 12
+      }
+    ],
+    "kit": [],
+    "updatedAt": 1774868901936
+  },
+  {
+    "id": "doomsday-weapons",
+    "name": "Doomsday Weapons",
+    "weapons": [
+      {
+        "name": "Metal Chest Plate",
+        "code": "metal.plate.torso",
+        "category": "ATTIRE",
+        "quantity": 30
+      },
+      {
+        "name": "Metal Facemask",
+        "code": "metal.facemask",
+        "category": "ATTIRE",
+        "quantity": 30
+      },
+      {
+        "name": "Hoodie",
+        "code": "hoodie",
+        "category": "ATTIRE",
+        "quantity": 30
+      },
+      {
+        "name": "Road Sign Kilt",
+        "code": "roadsign.kilt",
+        "category": "ATTIRE",
+        "quantity": 30
+      },
+      {
+        "name": "Tactical Gloves",
+        "code": "tactical.gloves",
+        "category": "ATTIRE",
+        "quantity": 30
+      },
+      {
+        "name": "Pants",
+        "code": "pants",
+        "category": "ATTIRE",
+        "quantity": 30
+      },
+      {
+        "name": "Assault Rifle",
+        "code": "rifle.ak",
+        "category": "WEAPONS",
+        "quantity": 30
+      },
+      {
+        "name": "M249",
+        "code": "lmg.m249",
+        "category": "WEAPONS",
+        "quantity": 6
+      },
+      {
+        "name": "L96 Rifle",
+        "code": "rifle.l96",
+        "category": "WEAPONS",
+        "quantity": 8
+      },
+      {
+        "name": "HMLMG",
+        "code": "hmlmg",
+        "category": "WEAPONS",
+        "quantity": 10
+      },
+      {
+        "name": "High External Wooden Wall",
+        "code": "wall.external.high",
+        "category": "CONSTRUCTION",
+        "quantity": 36
+      },
+      {
+        "name": "5.56 Rifle Ammo",
+        "code": "ammo.rifle",
+        "category": "AMMO",
+        "quantity": 9000
+      },
+      {
+        "name": "Medical Syringe",
+        "code": "syringe.medical",
+        "category": "MEDICAL",
+        "quantity": 180
+      },
+      {
+        "name": "Large Medkit",
+        "code": "largemedkit",
+        "category": "MEDICAL",
+        "quantity": 15
+      },
+      {
+        "name": "Sleeping Bag",
+        "code": "sleepingbag",
+        "category": "ITEMS",
+        "quantity": 6
+      },
+      {
+        "name": "Weapon Lasersight",
+        "code": "weapon.mod.lasersight",
+        "category": "WEAPONS",
+        "quantity": 24
+      },
+      {
+        "name": "4x Zoom Scope",
+        "code": "weapon.mod.small.scope",
+        "category": "WEAPONS",
+        "quantity": 14
+      },
+      {
+        "name": "Holosight",
+        "code": "weapon.mod.holosight",
+        "category": "WEAPONS",
+        "quantity": 40
+      }
+    ],
+    "resources": [],
+    "kit": [],
+    "updatedAt": 1774868522792
+  },
+  {
+    "id": "vanguard-weapons",
+    "name": "Vanguard Weapons",
+    "weapons": [
+      {
+        "name": "Metal Chest Plate",
+        "code": "metal.plate.torso",
+        "category": "ATTIRE",
+        "quantity": 18
+      },
+      {
+        "name": "Metal Facemask",
+        "code": "metal.facemask",
+        "category": "ATTIRE",
+        "quantity": 18
+      },
+      {
+        "name": "Hoodie",
+        "code": "hoodie",
+        "category": "ATTIRE",
+        "quantity": 18
+      },
+      {
+        "name": "Road Sign Kilt",
+        "code": "roadsign.kilt",
+        "category": "ATTIRE",
+        "quantity": 18
+      },
+      {
+        "name": "Tactical Gloves",
+        "code": "tactical.gloves",
+        "category": "ATTIRE",
+        "quantity": 18
+      },
+      {
+        "name": "Pants",
+        "code": "pants",
+        "category": "ATTIRE",
+        "quantity": 18
+      },
+      {
+        "name": "Assault Rifle",
+        "code": "rifle.ak",
+        "category": "WEAPONS",
+        "quantity": 18
+      },
+      {
+        "name": "M249",
+        "code": "lmg.m249",
+        "category": "WEAPONS",
+        "quantity": 3
+      },
+      {
+        "name": "L96 Rifle",
+        "code": "rifle.l96",
+        "category": "WEAPONS",
+        "quantity": 4
+      },
+      {
+        "name": "HMLMG",
+        "code": "hmlmg",
+        "category": "WEAPONS",
+        "quantity": 6
+      },
+      {
+        "name": "High External Wooden Wall",
+        "code": "wall.external.high",
+        "category": "CONSTRUCTION",
+        "quantity": 36
+      },
+      {
+        "name": "5.56 Rifle Ammo",
+        "code": "ammo.rifle",
+        "category": "AMMO",
+        "quantity": 5400
+      },
+      {
+        "name": "Medical Syringe",
+        "code": "syringe.medical",
+        "category": "MEDICAL",
+        "quantity": 108
+      },
+      {
+        "name": "Large Medkit",
+        "code": "largemedkit",
+        "category": "MEDICAL",
+        "quantity": 9
+      },
+      {
+        "name": "Sleeping Bag",
+        "code": "sleepingbag",
+        "category": "ITEMS",
+        "quantity": 3
+      },
+      {
+        "name": "Weapon Lasersight",
+        "code": "weapon.mod.lasersight",
+        "category": "WEAPONS",
+        "quantity": 13
+      },
+      {
+        "name": "4x Zoom Scope",
+        "code": "weapon.mod.small.scope",
+        "category": "WEAPONS",
+        "quantity": 7
+      },
+      {
+        "name": "Holosight",
+        "code": "weapon.mod.holosight",
+        "category": "WEAPONS",
+        "quantity": 24
+      }
+    ],
+    "resources": [],
+    "kit": [],
+    "updatedAt": 1774868526336
+  },
+  {
+    "id": "galactic-weapons",
+    "name": "Galactic Weapons",
+    "weapons": [
+      {
+        "name": "Metal Chest Plate",
+        "code": "metal.plate.torso",
+        "category": "ATTIRE",
+        "quantity": 12
+      },
+      {
+        "name": "Metal Facemask",
+        "code": "metal.facemask",
+        "category": "ATTIRE",
+        "quantity": 12
+      },
+      {
+        "name": "Hoodie",
+        "code": "hoodie",
+        "category": "ATTIRE",
+        "quantity": 12
+      },
+      {
+        "name": "Road Sign Kilt",
+        "code": "roadsign.kilt",
+        "category": "ATTIRE",
+        "quantity": 12
+      },
+      {
+        "name": "Tactical Gloves",
+        "code": "tactical.gloves",
+        "category": "ATTIRE",
+        "quantity": 12
+      },
+      {
+        "name": "Pants",
+        "code": "pants",
+        "category": "ATTIRE",
+        "quantity": 12
+      },
+      {
+        "name": "Assault Rifle",
+        "code": "rifle.ak",
+        "category": "WEAPONS",
+        "quantity": 12
+      },
+      {
+        "name": "M249",
+        "code": "lmg.m249",
+        "category": "WEAPONS",
+        "quantity": 2
+      },
+      {
+        "name": "L96 Rifle",
+        "code": "rifle.l96",
+        "category": "WEAPONS",
+        "quantity": 3
+      },
+      {
+        "name": "HMLMG",
+        "code": "hmlmg",
+        "category": "WEAPONS",
+        "quantity": 4
+      },
+      {
+        "name": "High External Wooden Wall",
+        "code": "wall.external.high",
+        "category": "CONSTRUCTION",
+        "quantity": 18
+      },
+      {
+        "name": "5.56 Rifle Ammo",
+        "code": "ammo.rifle",
+        "category": "AMMO",
+        "quantity": 3600
+      },
+      {
+        "name": "Medical Syringe",
+        "code": "syringe.medical",
+        "category": "MEDICAL",
+        "quantity": 72
+      },
+      {
+        "name": "Large Medkit",
+        "code": "largemedkit",
+        "category": "MEDICAL",
+        "quantity": 6
+      },
+      {
+        "name": "Sleeping Bag",
+        "code": "sleepingbag",
+        "category": "ITEMS",
+        "quantity": 2
+      },
+      {
+        "name": "Weapon Lasersight",
+        "code": "weapon.mod.lasersight",
+        "category": "WEAPONS",
+        "quantity": 9
+      },
+      {
+        "name": "4x Zoom Scope",
+        "code": "weapon.mod.small.scope",
+        "category": "WEAPONS",
+        "quantity": 5
+      },
+      {
+        "name": "Holosight",
+        "code": "weapon.mod.holosight",
+        "category": "WEAPONS",
+        "quantity": 16
+      }
+    ],
+    "resources": [],
+    "kit": [],
+    "updatedAt": 1774868271296
+  },
+  {
+    "id": "dominion-weapons",
+    "name": "Dominion Weapons",
+    "weapons": [
+      {
+        "name": "Metal Chest Plate",
+        "code": "metal.plate.torso",
+        "category": "ATTIRE",
+        "quantity": 6
+      },
+      {
+        "name": "Metal Facemask",
+        "code": "metal.facemask",
+        "category": "ATTIRE",
+        "quantity": 6
+      },
+      {
+        "name": "Hoodie",
+        "code": "hoodie",
+        "category": "ATTIRE",
+        "quantity": 6
+      },
+      {
+        "name": "Road Sign Kilt",
+        "code": "roadsign.kilt",
+        "category": "ATTIRE",
+        "quantity": 6
+      },
+      {
+        "name": "Tactical Gloves",
+        "code": "tactical.gloves",
+        "category": "ATTIRE",
+        "quantity": 6
+      },
+      {
+        "name": "Pants",
+        "code": "pants",
+        "category": "ATTIRE",
+        "quantity": 6
+      },
+      {
+        "name": "Assault Rifle",
+        "code": "rifle.ak",
+        "category": "WEAPONS",
+        "quantity": 6
+      },
+      {
+        "name": "M249",
+        "code": "lmg.m249",
+        "category": "WEAPONS",
+        "quantity": 1
+      },
+      {
+        "name": "L96 Rifle",
+        "code": "rifle.l96",
+        "category": "WEAPONS",
+        "quantity": 1
+      },
+      {
+        "name": "HMLMG",
+        "code": "hmlmg",
+        "category": "WEAPONS",
+        "quantity": 2
+      },
+      {
+        "name": "High External Wooden Wall",
+        "code": "wall.external.high",
+        "category": "CONSTRUCTION",
+        "quantity": 6
+      },
+      {
+        "name": "5.56 Rifle Ammo",
+        "code": "ammo.rifle",
+        "category": "AMMO",
+        "quantity": 1800
+      },
+      {
+        "name": "Medical Syringe",
+        "code": "syringe.medical",
+        "category": "MEDICAL",
+        "quantity": 36
+      },
+      {
+        "name": "Large Medkit",
+        "code": "largemedkit",
+        "category": "MEDICAL",
+        "quantity": 3
+      },
+      {
+        "name": "Sleeping Bag",
+        "code": "sleepingbag",
+        "category": "ITEMS",
+        "quantity": 1
+      },
+      {
+        "name": "Weapon Lasersight",
+        "code": "weapon.mod.lasersight",
+        "category": "WEAPONS",
+        "quantity": 2
+      },
+      {
+        "name": "4x Zoom Scope",
+        "code": "weapon.mod.small.scope",
+        "category": "WEAPONS",
+        "quantity": 2
+      },
+      {
+        "name": "Holosight",
+        "code": "weapon.mod.holosight",
+        "category": "WEAPONS",
+        "quantity": 8
+      }
+    ],
+    "resources": [],
+    "kit": [],
+    "updatedAt": 1774867883746
+  }
+]

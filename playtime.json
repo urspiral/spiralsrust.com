@@ -1,0 +1,37 @@
+{
+  "na3x": {
+    "players": {
+      "urspiral": {
+        "name": "urspiral",
+        "seconds": 546,
+        "lastSeenAt": 1781229374672
+      },
+      "dxtxi": {
+        "name": "DXTXI",
+        "seconds": 2110,
+        "lastSeenAt": 1781279733325
+      },
+      "lord-incendiary": {
+        "name": "LORD-INCENDIARY",
+        "seconds": 1067,
+        "lastSeenAt": 1781292305861
+      },
+      "rally944": {
+        "name": "rally944",
+        "seconds": 625,
+        "lastSeenAt": 1781292263559
+      },
+      "cofer_330_oh10_": {
+        "name": "coFER_330_OH10_",
+        "seconds": 31,
+        "lastSeenAt": 1781295383264
+      },
+      "chkirky911": {
+        "name": "ChKirky911",
+        "seconds": 185,
+        "lastSeenAt": 1781295577660
+      }
+    },
+    "updatedAt": 1781295577660
+  }
+}

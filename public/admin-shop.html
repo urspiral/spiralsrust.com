@@ -1,0 +1,580 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Spirals RCE | Shop Admin</title>
+<link href="https://fonts.googleapis.com/css2?family=Oxanium:wght@400;600;700;900&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+<style>
+  :root {
+    color-scheme: dark;
+    --bg: #0a0704;
+    --surface: rgba(18, 13, 9, 0.92);
+    --surface-strong: rgba(30, 21, 15, 0.95);
+    --border: rgba(255, 255, 255, 0.08);
+    --text: #f1e8df;
+    --muted: #9f8a79;
+    --accent: #ff4f4f;
+    --accent2: #fcbf49;
+    --green: #22c55e;
+    --blue: #3b82f6;
+    --radius: 18px;
+  }
+  * { box-sizing: border-box; }
+  body { margin: 0; min-height: 100vh; font-family: 'Inter', sans-serif; background: radial-gradient(circle at top, rgba(255,79,79,0.12), transparent 25%), radial-gradient(circle at bottom right, rgba(59,130,246,0.08), transparent 18%), var(--bg); color: var(--text); }
+  .page { max-width: 1300px; margin: 0 auto; padding: 24px; }
+  h1, h2, h3 { margin: 0; }
+  h1 { font-family: 'Oxanium', sans-serif; font-size: clamp(2.2rem, 1.8rem + 1vw, 3rem); letter-spacing: 0.08em; }
+  .topbar { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 16px; margin-bottom: 24px; }
+  .topbar p { margin: 0; color: var(--muted); max-width: 720px; }
+  .section { margin-top: 24px; }
+  .section-header {
+  display: flex;
+  align-items: flex-start; /* was center */
+  justify-content: space-between;
+  gap: 12px;
+  margin-bottom: 20px;
+}
+
+.section-header h2 {
+  font-size: 2rem;
+  margin-bottom: 8px;
+  line-height: 1.2;
+}
+
+.section-header .note {
+  margin-top: 0;
+  font-size: 0.95rem;
+  line-height: 1.5;
+  color: var(--muted);
+}
+  .card { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); padding: 20px; box-shadow: 0 20px 60px rgba(0,0,0,.22); }
+  .grid { display: grid; gap: 18px; }
+  .grid-3 { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+  .grid-2 { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .field { display: grid; gap: 8px; margin-bottom: 14px; }
+  .field label { font-size: 0.83rem; color: var(--muted); text-transform: uppercase; letter-spacing: 0.08em; }
+  .field input, .field select, .field textarea { width: 100%; border-radius: 12px; border: 1px solid rgba(255,255,255,.1); background: rgba(255,255,255,.03); color: var(--text); padding: 12px 14px; font: inherit; outline: none; }
+  .field textarea { min-height: 96px; resize: vertical; }
+  .button { border: none; border-radius: 999px; padding: 12px 18px; background: var(--accent); color: #111; font-weight: 700; cursor: pointer; transition: transform .15s ease, background .2s ease; }
+  .button:hover { transform: translateY(-1px); background: #ff6b6b; }
+  .button-secondary { background: rgba(255,255,255,.08); color: var(--text); }
+  .button-danger { background: #ef4444; }
+  .table { width: 100%; border-collapse: collapse; }
+  .table th, .table td { padding: 12px 14px; text-align: left; border-bottom: 1px solid rgba(255,255,255,.08); }
+  .table th { color: var(--muted); font-size: .8rem; letter-spacing:.08em; text-transform: uppercase; }
+  .table tr:hover { background: rgba(255,255,255,.04); }
+  .badge { display: inline-flex; align-items: center; gap: 6px; padding: 6px 10px; border-radius: 999px; background: rgba(34,197,94,.16); color: var(--green); font-size: .78rem; }
+  .row { display: flex; flex-wrap: wrap; gap: 14px; }
+  .row > * { flex: 1 1 240px; }
+  .message-row { display: grid; grid-template-columns: minmax(220px, 1fr) minmax(280px, 2fr) 44px; gap: 12px; align-items: center; margin-bottom: 12px; }
+  .message-row input,
+  .message-row select {
+    width: 100%;
+    height: 46px;
+    margin-bottom: 0;
+    border-radius: 999px;
+    border: 1px solid rgba(255,255,255,.1);
+    background: rgba(255,255,255,.08);
+    color: var(--text);
+    padding: 0 16px;
+    font: inherit;
+    outline: none;
+    transition: border-color .2s ease, background .2s ease, box-shadow .2s ease;
+  }
+  .message-row select {
+    appearance: none;
+    background-image:
+      linear-gradient(45deg, transparent 50%, var(--muted) 50%),
+      linear-gradient(135deg, var(--muted) 50%, transparent 50%);
+    background-position:
+      calc(100% - 20px) 20px,
+      calc(100% - 14px) 20px;
+    background-size: 6px 6px, 6px 6px;
+    background-repeat: no-repeat;
+    padding-right: 40px;
+  }
+  .message-row select option { background: #1e150f; color: var(--text); }
+  .message-row input:focus,
+  .message-row select:focus {
+    border-color: rgba(255,79,79,.45);
+    background: rgba(255,255,255,.1);
+    box-shadow: 0 0 0 3px rgba(255,79,79,.12);
+  }
+  .message-row button {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 44px;
+    height: 44px;
+    border: 1px solid rgba(255,255,255,.1);
+    border-radius: 999px;
+    background: rgba(255,255,255,.08);
+    color: var(--text);
+    font-size: 18px;
+    font-weight: 800;
+    cursor: pointer;
+    transition: transform .15s ease, background .2s ease, border-color .2s ease;
+  }
+  .message-row button:hover { transform: translateY(-1px); background: rgba(239,68,68,.18); border-color: rgba(239,68,68,.35); }
+  .note { color: var(--muted); font-size: .88rem; margin-top: -8px; margin-bottom: 12px; }
+  @media (max-width: 980px) {
+    .grid-3, .grid-2 { grid-template-columns: 1fr; }
+    .message-row { grid-template-columns: 1fr; }
+    .message-row button { width: 100%; }
+  }
+</style>
+</head>
+<body>
+  <div class="page">
+    <div class="topbar">
+      <div>
+        <h1>Shop Admin</h1>
+        <p>Manage products, Stripe settings, Discord notifications, discount codes, gift cards, and leaderboard wipes.</p>
+      </div>
+      <a href="/dashboard" class="button button-secondary">Back to Dashboard</a>
+    </div>
+
+    <div class="section card">
+      <div class="section-header">
+        <div>
+          <h2>Stripe + Currency</h2>
+          <p class="note">Update checkout currency symbol and public Stripe key for client integrations.</p>
+        </div>
+        <button id="saveStripeConfigBtn" class="button">Save Settings</button>
+      </div>
+      <div class="grid grid-3">
+        <div class="field"><label>Currency</label><input id="stripeCurrency" value="usd" disabled /></div>
+        <div class="field"><label>Currency Symbol</label><input id="stripeCurrencySymbol" value="$" disabled /></div>
+        <div class="field"><label>Stripe Public Key</label><input id="stripePublicKey" placeholder="pk_live_..." /></div>
+      </div>
+    </div>
+
+    <div class="section card">
+      <div class="section-header">
+        <div>
+          <h2>Product Editor</h2>
+          <p class="note">Create or update shop products and subscriptions. Use the product ID to reference purchases and Discord role mappings.</p>
+        </div>
+        <div>
+          <button id="newProductBtn" class="button button-secondary">New Product</button>
+          <button id="saveProductBtn" class="button">Save Product</button>
+        </div>
+      </div>
+      <div class="grid grid-3">
+        <div class="field"><label>Product ID</label><input id="productId" placeholder="doomsday-rank" /></div>
+        <div class="field"><label>Title</label><input id="productTitle" placeholder="Doomsday Rank" /></div>
+        <div class="field"><label>Type</label><select id="productType"><option value="vip">VIP</option><option value="ranks">Ranks</option><option value="packs">Packs</option><option value="bundle">Bundle</option></select></div>
+      </div>
+      <div class="grid grid-3">
+        <div class="field"><label>Price</label><input id="productPrice" type="number" step="0.01" placeholder="59.99" /></div>
+        <div class="field"><label>Currency</label><input id="productCurrency" value="usd" disabled /></div>
+        <div class="field"><label>Stripe Price ID (optional)</label><input id="productStripePriceId" placeholder="price_..." /></div>
+      </div>
+      <p class="note">Leave Stripe Price ID blank to use the price entered above and create a Stripe Checkout item automatically.</p>
+      <div class="grid grid-3">
+        <div class="field"><label>Mode</label><select id="productMode"><option value="payment">Payment</option><option value="subscription">Subscription</option></select></div>
+        <div class="field"><label>Interval</label><input id="productInterval" placeholder="month" /></div>
+        <div class="field"><label>Allow Multiple</label><select id="productAllowMultiple"><option value="false">No</option><option value="true">Yes</option></select></div>
+      </div>
+      <div class="field"><label>Description</label><textarea id="productDescription" placeholder="Optional product description."></textarea></div>
+      <div class="field"><label>Discord Role IDs (comma-separated)</label><input id="productDiscordRoles" placeholder="1486003753910800484,1486003618447622145" /></div>
+      <div class="field"><label>Server Discounts (JSON)</label><textarea id="productServerDiscounts" placeholder='{"na3x":10,"na2x":5}'></textarea></div>
+      <div class="field"><label>Discord Messages</label></div>
+      <div id="discordMessages"></div>
+      <button id="addMessageBtn" class="button button-secondary" style="margin-bottom:18px;">Add Message</button>
+    </div>
+
+    <div class="section card">
+      <div class="section-header">
+        <div>
+          <h2>Products</h2>
+          <p class="note">Select a product to load it into the editor.</p>
+        </div>
+      </div>
+      <table class="table" id="productsTable">
+        <thead>
+          <tr><th>ID</th><th>Title</th><th>Type</th><th>Price</th><th>Mode</th><th>Status</th><th>Actions</th></tr>
+        </thead>
+        <tbody></tbody>
+      </table>
+    </div>
+
+    <div class="section card">
+      <div class="section-header">
+        <div>
+          <h2>Discount Codes</h2>
+          <p class="note">Create fixed or percent discount codes that can be applied at checkout.</p>
+        </div>
+        <button id="toggleDiscountBtn" class="button button-secondary">Manage Discount Codes</button>
+      </div>
+      <div id="discountSection" style="display:none;">
+        <div class="row">
+          <button id="saveDiscountBtn" class="button">Save Discount</button>
+        </div>
+        <div class="grid grid-3">
+          <div class="field"><label>Code</label><input id="discountCode" placeholder="SPRING10" /></div>
+          <div class="field"><label>Amount</label><input id="discountAmount" type="number" step="0.01" placeholder="10" /></div>
+          <div class="field"><label>Type</label><select id="discountType"><option value="fixed">Fixed</option><option value="percent">Percent</option></select></div>
+        </div>
+        <div class="grid grid-3">
+          <div class="field"><label>Server ID (optional)</label><input id="discountServerId" placeholder="na3x" /></div>
+          <div class="field"><label>Status</label><select id="discountActive"><option value="true">Active</option><option value="false">Inactive</option></select></div>
+        </div>
+        <table class="table" id="discountsTable">
+          <thead><tr><th>Code</th><th>Amount</th><th>Type</th><th>Server</th><th>Status</th><th>Action</th></tr></thead>
+          <tbody></tbody>
+        </table>
+      </div>
+    </div>
+
+    <div class="section card">
+      <div class="section-header">
+        <div>
+          <h2>Gift Cards</h2>
+          <p class="note">Create gift card codes for fixed credit on checkout.</p>
+        </div>
+        <button id="toggleGiftcardBtn" class="button button-secondary">Manage Gift Cards</button>
+      </div>
+      <div id="giftcardSection" style="display:none;">
+        <div class="row">
+          <button id="saveGiftcardBtn" class="button">Save Gift Card</button>
+        </div>
+        <div class="grid grid-3">
+          <div class="field"><label>Code</label><input id="giftcardCode" placeholder="GIFT2026" /></div>
+          <div class="field"><label>Amount</label><input id="giftcardAmount" type="number" step="0.01" placeholder="5" /></div>
+          <div class="field"><label>Currency</label><input id="giftcardCurrency" value="usd" disabled /></div>
+        </div>
+        <div class="field"><label>Note</label><input id="giftcardNote" placeholder="Optional note" /></div>
+        <table class="table" id="giftcardsTable">
+          <thead><tr><th>Code</th><th>Amount</th><th>Currency</th><th>Status</th><th>Action</th></tr></thead>
+          <tbody></tbody>
+        </table>
+      </div>
+    </div>
+
+    <div class="section card">
+      <div class="section-header">
+        <div>
+          <h2>Leaderboard Wipe</h2>
+          <p class="note">Reset kills or playtime leaderboards instantly.</p>
+        </div>
+      </div>
+      <div class="row">
+        <button class="button button-danger" onclick="wipeLeaderboard('kills')">Wipe Kills</button>
+        <button class="button button-danger" onclick="wipeLeaderboard('playtime')">Wipe Playtime</button>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    let currentProduct = null;
+    let discordChannels = [];
+
+    function createMessageRow(message = {}) {
+      const row = document.createElement('div');
+      row.className = 'message-row';
+      row.innerHTML = `
+        <select class="message-channel"></select>
+        <input type="text" class="message-content" placeholder="Discord message content" value="${(message.content || '').replace(/"/g, '&quot;')}" />
+        <button type="button" title="Remove">×</button>
+      `;
+      const select = row.querySelector('.message-channel');
+      const input = row.querySelector('.message-content');
+      const removeBtn = row.querySelector('button');
+      select.innerHTML = '<option value="">Select channel</option>' + discordChannels.map(ch => `<option value="${ch.id}" ${ch.id === message.channelId ? 'selected' : ''}>${ch.name}</option>`).join('');
+      removeBtn.addEventListener('click', () => row.remove());
+      return row;
+    }
+
+    async function loadDiscordChannels() {
+      try {
+        const res = await fetch('/api/admin/discord/channels');
+        if (res.status === 401) {
+          discordChannels = [];
+          renderMessageRows();
+          showToast('Please open Shop Admin from the dashboard so Discord channels can load.');
+          window.location.href = '/auth/discord?returnTo=/admin/shop';
+          return;
+        }
+        const data = await res.json();
+        discordChannels = Array.isArray(data) ? data : [];
+      } catch (error) {
+        discordChannels = [];
+        showToast('Failed to load Discord channels');
+      }
+      renderMessageRows();
+    }
+
+    function renderMessageRows() {
+      const container = document.getElementById('discordMessages');
+      container.innerHTML = '';
+      const rows = currentProduct?.discordMessages || [];
+      if (rows.length === 0) {
+        container.appendChild(createMessageRow());
+      } else {
+        rows.forEach(msg => container.appendChild(createMessageRow(msg)));
+      }
+    }
+
+    function getMessageRows() {
+      return Array.from(document.querySelectorAll('#discordMessages .message-row')).map(row => ({
+        channelId: row.querySelector('.message-channel').value,
+        content: row.querySelector('.message-content').value.trim()
+      })).filter(item => item.channelId && item.content);
+    }
+
+    function showToast(message) {
+      alert(message);
+    }
+
+    async function loadProducts() {
+      const res = await fetch('/api/admin/products');
+      const products = await res.json();
+      const tbody = document.querySelector('#productsTable tbody');
+      tbody.innerHTML = products.map(product => `
+        <tr>
+          <td>${product.id}</td>
+          <td>${product.title || ''}</td>
+          <td>${product.type || ''}</td>
+          <td>${product.currencySymbol || '$'}${Number(product.price || 0).toFixed(2)}</td>
+          <td>${product.mode || 'payment'}</td>
+          <td>${product.active !== false ? 'Active' : 'Inactive'}</td>
+          <td>
+            <button class="button button-secondary edit-product-btn" data-product-id="${product.id}">Edit</button>
+            <button class="button button-danger delete-product-btn" data-product-id="${product.id}">Delete</button>
+          </td>
+        </tr>
+      `).join('');
+
+      tbody.querySelectorAll('.edit-product-btn').forEach(btn => {
+        btn.addEventListener('click', () => loadProduct(btn.dataset.productId));
+      });
+      tbody.querySelectorAll('.delete-product-btn').forEach(btn => {
+        btn.addEventListener('click', () => deleteProduct(btn.dataset.productId));
+      });
+    }
+
+    async function loadConfig() {
+      const res = await fetch('/api/admin/stripe-config');
+      if (!res.ok) return;
+      const config = await res.json();
+      document.getElementById('stripeCurrency').value = 'usd';
+      document.getElementById('stripeCurrencySymbol').value = '$';
+      document.getElementById('stripePublicKey').value = config.stripePublicKey || '';
+    }
+
+    async function saveConfig() {
+      const payload = {
+        currency: 'usd',
+        currencySymbol: '$',
+        stripePublicKey: document.getElementById('stripePublicKey').value.trim()
+      };
+      const res = await fetch('/api/admin/stripe-config', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(payload) });
+      if (!res.ok) return showToast('Failed to save Stripe settings');
+      showToast('Stripe settings saved');
+    }
+
+    async function loadProduct(id) {
+      const res = await fetch('/api/admin/products');
+      const products = await res.json();
+      const product = products.find(p => p.id === id);
+      if (!product) return;
+      currentProduct = product;
+      document.getElementById('productId').value = product.id;
+      document.getElementById('productTitle').value = product.title || '';
+      document.getElementById('productType').value = product.type || 'vip';
+      document.getElementById('productPrice').value = product.price || '';
+      document.getElementById('productCurrency').value = 'usd';
+      document.getElementById('productStripePriceId').value = product.stripePriceId || '';
+      document.getElementById('productMode').value = product.mode || 'payment';
+      document.getElementById('productInterval').value = product.interval || 'month';
+      document.getElementById('productAllowMultiple').value = product.allowMultiple ? 'true' : 'false';
+      document.getElementById('productDescription').value = product.description || '';
+      document.getElementById('productDiscordRoles').value = Array.isArray(product.discordRoleIds) ? product.discordRoleIds.join(',') : '';
+      document.getElementById('productServerDiscounts').value = JSON.stringify(product.serverDiscounts || {}, null, 2);
+      currentProduct.discordMessages = Array.isArray(product.discordMessages) ? product.discordMessages : [];
+      renderMessageRows();
+    }
+
+    function resetProductForm() {
+      currentProduct = null;
+      document.getElementById('productId').value = '';
+      document.getElementById('productTitle').value = '';
+      document.getElementById('productType').value = 'vip';
+      document.getElementById('productPrice').value = '';
+      document.getElementById('productCurrency').value = document.getElementById('stripeCurrency').value || 'usd';
+      document.getElementById('productStripePriceId').value = '';
+      document.getElementById('productMode').value = 'payment';
+      document.getElementById('productInterval').value = 'month';
+      document.getElementById('productAllowMultiple').value = 'false';
+      document.getElementById('productDescription').value = '';
+      document.getElementById('productDiscordRoles').value = '';
+      document.getElementById('productServerDiscounts').value = '{}';
+      currentProduct = { discordMessages: [] };
+      renderMessageRows();
+    }
+
+    async function saveProduct() {
+      const payload = {
+        id: document.getElementById('productId').value.trim(),
+        title: document.getElementById('productTitle').value.trim(),
+        type: document.getElementById('productType').value,
+        price: Number(document.getElementById('productPrice').value) || 0,
+        currency: 'usd',
+        stripePriceId: document.getElementById('productStripePriceId').value.trim(),
+        mode: document.getElementById('productMode').value,
+        interval: document.getElementById('productInterval').value.trim(),
+        allowMultiple: document.getElementById('productAllowMultiple').value === 'true',
+        description: document.getElementById('productDescription').value.trim(),
+        discordRoleIds: document.getElementById('productDiscordRoles').value.split(',').map(v => v.trim()).filter(Boolean),
+        discordMessages: getMessageRows(),
+        serverDiscounts: (() => {
+          try {
+            return JSON.parse(document.getElementById('productServerDiscounts').value || '{}');
+          } catch (error) {
+            return {};
+          }
+        })(),
+        active: true
+      };
+      if (!payload.id || !payload.title || !payload.type) return showToast('Product id, title, and type are required');
+      if (!payload.price || payload.price <= 0) return showToast('Product price is required');
+      const res = await fetch('/api/admin/products', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(payload) });
+      const data = await res.json();
+      if (!res.ok) return showToast(data.error || 'Failed to save product');
+      showToast('Product saved');
+      await loadProducts();
+      resetProductForm();
+    }
+
+    async function deleteProduct(id) {
+      if (!confirm(`Delete product ${id}?`)) return;
+      const res = await fetch(`/api/admin/products/${encodeURIComponent(id)}`, { method: 'DELETE' });
+      if (!res.ok) return showToast('Failed to delete product');
+      await loadProducts();
+    }
+
+    async function saveDiscount() {
+      const payload = {
+        code: document.getElementById('discountCode').value.trim(),
+        amount: Number(document.getElementById('discountAmount').value) || 0,
+        type: document.getElementById('discountType').value,
+        serverId: document.getElementById('discountServerId').value.trim(),
+        active: document.getElementById('discountActive').value === 'true'
+      };
+      if (!payload.code || !payload.amount) return showToast('Discount code and amount required');
+      const res = await fetch('/api/admin/discounts', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(payload) });
+      const data = await res.json();
+      if (!res.ok) return showToast(data.error || 'Failed to save discount');
+      showToast('Discount saved');
+      await loadDiscounts();
+    }
+
+    async function loadDiscounts() {
+      const res = await fetch('/api/admin/discounts');
+      const discounts = await res.json();
+      const tbody = document.querySelector('#discountsTable tbody');
+      tbody.innerHTML = discounts.map(d => `
+        <tr>
+          <td>${d.code}</td>
+          <td>${d.amount}${d.type === 'percent' ? '%' : ''}</td>
+          <td>${d.type}</td>
+          <td>${d.serverId || 'All'}</td>
+          <td>${d.active !== false ? 'Active' : 'Inactive'}</td>
+          <td><button class="button button-danger" onclick="deleteDiscount('${d.code}')">Delete</button></td>
+        </tr>
+      `).join('');
+    }
+
+    async function deleteDiscount(code) {
+      if (!confirm(`Delete discount ${code}?`)) return;
+      await fetch(`/api/admin/discounts/${encodeURIComponent(code)}`, { method: 'DELETE' });
+      await loadDiscounts();
+    }
+
+    async function saveGiftcard() {
+      const payload = {
+        code: document.getElementById('giftcardCode').value.trim(),
+        amount: Number(document.getElementById('giftcardAmount').value) || 0,
+        currency: 'usd',
+        note: document.getElementById('giftcardNote').value.trim(),
+        active: true
+      };
+      if (!payload.code || !payload.amount) return showToast('Gift card code and amount required');
+      const res = await fetch('/api/admin/giftcards', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(payload) });
+      const data = await res.json();
+      if (!res.ok) return showToast(data.error || 'Failed to save gift card');
+      showToast('Gift card saved');
+      await loadGiftcards();
+    }
+
+    async function loadGiftcards() {
+      const res = await fetch('/api/admin/giftcards');
+      const cards = await res.json();
+      const tbody = document.querySelector('#giftcardsTable tbody');
+      tbody.innerHTML = cards.map(c => `
+        <tr>
+          <td>${c.code}</td>
+          <td>${c.amount}</td>
+          <td>${c.currency || ''}</td>
+          <td>${c.active !== false ? 'Active' : 'Inactive'}</td>
+          <td><button class="button button-danger" onclick="deleteGiftcard('${c.code}')">Delete</button></td>
+        </tr>
+      `).join('');
+    }
+
+    async function deleteGiftcard(code) {
+      if (!confirm(`Delete gift card ${code}?`)) return;
+      await fetch(`/api/admin/giftcards/${encodeURIComponent(code)}`, { method: 'DELETE' });
+      await loadGiftcards();
+    }
+
+    async function wipeLeaderboard(type) {
+      if (!confirm(`Wipe ${type} leaderboard?`)) return;
+      const res = await fetch('/api/admin/leaderboard/wipe', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ type }) });
+      if (!res.ok) return showToast('Failed to wipe leaderboard');
+      showToast(`${type} leaderboard wiped`);
+    }
+
+    document.getElementById('addMessageBtn').addEventListener('click', () => {
+      document.getElementById('discordMessages').appendChild(createMessageRow());
+    });
+    document.getElementById('newProductBtn').addEventListener('click', resetProductForm);
+    document.getElementById('saveProductBtn').addEventListener('click', saveProduct);
+    document.getElementById('saveStripeConfigBtn').addEventListener('click', saveConfig);
+    document.getElementById('toggleDiscountBtn').addEventListener('click', toggleDiscountSection);
+    document.getElementById('toggleGiftcardBtn').addEventListener('click', toggleGiftcardSection);
+    document.getElementById('saveDiscountBtn').addEventListener('click', saveDiscount);
+    document.getElementById('saveGiftcardBtn').addEventListener('click', saveGiftcard);
+
+    function toggleDiscountSection() {
+      const section = document.getElementById('discountSection');
+      const button = document.getElementById('toggleDiscountBtn');
+      const visible = section.style.display === 'block';
+      section.style.display = visible ? 'none' : 'block';
+      button.textContent = visible ? 'Manage Discount Codes' : 'Hide Discount Codes';
+    }
+
+    function toggleGiftcardSection() {
+      const section = document.getElementById('giftcardSection');
+      const button = document.getElementById('toggleGiftcardBtn');
+      const visible = section.style.display === 'block';
+      section.style.display = visible ? 'none' : 'block';
+      button.textContent = visible ? 'Manage Gift Cards' : 'Hide Gift Cards';
+    }
+
+    async function initAdmin() {
+      currentProduct = { discordMessages: [] };
+      document.getElementById('productServerDiscounts').value = '{}';
+      await loadDiscordChannels();
+      await loadConfig();
+      await loadProducts();
+      await loadDiscounts();
+      await loadGiftcards();
+    }
+
+    initAdmin();
+  </script>
+</body>
+</html>

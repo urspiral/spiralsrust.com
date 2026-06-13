@@ -1,0 +1,1080 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Spirals RCE | Premium Console Servers</title>
+<meta name="description" content="Spirals RCE - Premium Rust Console Edition servers. Across EU, NA & AU regions we offer the #1 console experience">
+
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://spiralsrust.com/">
+<meta property="og:title" content="Spirals RCE | Premium Console Servers">
+<meta property="og:description" content="Spirals RCE - Premium Rust Console Edition servers. Across EU, NA & AU regions we offer the #1 console experience">
+<meta property="og:image" content="https://riserce.com/og-image.png">
+
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Spirals RCE | Premium Console Servers">
+<meta name="twitter:description" content="Spirals RCE - Premium Rust Console Edition servers. Across EU, NA & AU regions we offer the #1 console experience">
+<meta name="twitter:image" content="https://riserce.com/og-image.png">
+
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Oxanium:wght@400;500;600;700;800;900&family=Rajdhani:wght@400;500;600;700&family=Inter:wght@300;400;500;600;700&display=swap">
+  <style>
+    *,*::before,*::after{margin:0;padding:0;box-sizing:border-box}
+    :root{
+      --orange:#d92c2c;--orange-bright:#ff3a3a;--orange-dim:#a72a2a;
+      --orange-glow:rgba(255,58,58,0.35);--amber:#ff5b5b;
+      --dark:#09060304;--dark2:#0d0906;--dark3:#110b07;
+      --card:#1a1008;--card2:#150d06;
+      --border:rgba(255,255,255,0.06);--border-orange:rgba(255,58,58,0.2);
+      --text:#f1e8df;--muted:#8c6f5a;--muted2:#b89a82;
+    }
+    .hero-wordmark .logo-s {
+  color: var(--orange-bright);
+}
+    html{scroll-behavior:smooth}
+    body{
+      background:#09060304;
+      background:radial-gradient(ellipse 120% 60% at 50% -10%, rgba(200,40,40,0.09) 0%, transparent 55%),
+                 linear-gradient(180deg,#080503 0%,#0a0704 100%);
+      background-attachment:fixed;
+      color:var(--text);font-family:'Inter',sans-serif;overflow-x:hidden;
+    }
+    ::-webkit-scrollbar{width:4px}
+    ::-webkit-scrollbar-track{background:#080503}
+    ::-webkit-scrollbar-thumb{background:var(--orange-dim);border-radius:3px}
+
+    @keyframes fadeUp{
+      from{opacity:0;transform:translateY(22px)}
+      to{opacity:1;transform:translateY(0)}
+    }
+    @keyframes fadeIn{
+      from{opacity:0}
+      to{opacity:1}
+    }
+    @keyframes navSlideIn{
+      from{opacity:0;transform:translateY(-14px)}
+      to{opacity:1;transform:translateY(0)}
+    }
+    @keyframes scaleReveal{
+      from{opacity:0;transform:scale(0.94) translateY(16px)}
+      to{opacity:1;transform:scale(1) translateY(0)}
+    }
+    @keyframes lineExpand{
+      from{opacity:0;transform:scaleX(0)}
+      to{opacity:1;transform:scaleX(1)}
+    }
+
+    nav.desktop-nav{
+      position:fixed;top:0;left:0;right:0;z-index:200;
+      display:flex;align-items:center;justify-content:space-between;
+      padding:0 52px;height:66px;
+      background:rgba(9,6,3,0.82);
+      backdrop-filter:blur(24px) saturate(1.4);
+      border-bottom:1px solid var(--border);
+      animation:navSlideIn 0.7s cubic-bezier(0.16,1,0.3,1) both;
+    }
+    .nav-logo{
+      font-family:'Oxanium',sans-serif;font-size:26px;font-weight:900;
+      letter-spacing:1px;color:#fff;text-decoration:none;
+      position:relative;
+    }
+    .nav-logo span{color:var(--orange-bright)}
+    .nav-logo::after{
+      content:'';position:absolute;bottom:-2px;left:0;right:0;
+      height:1px;background:linear-gradient(90deg,var(--orange-dim),var(--orange-bright),transparent);
+      opacity:0.4;
+    }
+    .nav-links{display:flex;gap:38px;list-style:none}
+    .nav-links a{
+      color:var(--muted2);text-decoration:none;font-size:12px;
+      font-weight:600;letter-spacing:1.8px;text-transform:uppercase;
+      transition:color 0.2s;position:relative;padding-bottom:2px;
+    }
+    .nav-links a::after{
+      content:'';position:absolute;bottom:-4px;left:0;right:0;
+      height:1px;background:var(--orange-bright);
+      transform:scaleX(0);transform-origin:left;transition:transform 0.25s cubic-bezier(0.16,1,0.3,1)
+    }
+    .nav-links a:hover{color:#fff}
+    .nav-links a:hover::after{transform:scaleX(1)}
+    .nav-right{display:flex;gap:10px;align-items:center}
+    .nav-right>*,
+    .nav-right .server-selector-btn,
+    .nav-right .jewel-nav-btn,
+    .nav-right .btn-discord,
+    .nav-right .user-chip{height:36px;min-height:36px;max-height:36px;box-sizing:border-box}
+    .nav-right .btn-discord{display:inline-flex;align-items:center}
+
+    .server-selector{position:relative}
+    .server-selector-btn{
+      display:inline-flex;align-items:center;gap:8px;padding:0 18px;
+      background:rgba(255,255,255,0.04);border:1px solid var(--border-orange);
+      border-radius:8px;color:var(--text);font-size:12px;font-weight:700;
+      font-family:'Inter',sans-serif;cursor:pointer;transition:all 0.22s;
+      white-space:nowrap;
+    }
+    .server-selector-btn:hover{background:rgba(255,58,58,0.08);border-color:var(--orange-bright)}
+    .server-selector-btn svg{width:14px;height:14px;color:var(--orange-bright);flex-shrink:0}
+    .server-selector-btn .chevron{margin-left:auto;width:12px;height:12px;color:var(--muted);transition:transform 0.2s}
+    .server-selector-btn.open .chevron{transform:rotate(180deg)}
+    .server-dropdown{
+      position:absolute;top:calc(100% + 8px);right:0;min-width:230px;
+      background:rgba(13,9,6,0.96);backdrop-filter:blur(20px);
+      border:1px solid var(--border-orange);border-radius:12px;overflow:hidden;
+      opacity:0;visibility:hidden;transform:translateY(-8px) scale(0.98);
+      transition:all 0.2s cubic-bezier(0.16,1,0.3,1);z-index:300;
+      box-shadow:0 20px 60px rgba(0,0,0,0.7),0 0 0 1px rgba(255,58,58,0.05) inset;
+    }
+    .server-dropdown.open{opacity:1;visibility:visible;transform:translateY(0) scale(1)}
+    .server-dropdown-item{
+      display:flex;align-items:center;justify-content:space-between;
+      padding:12px 16px;font-size:12px;font-weight:600;color:var(--muted2);
+      cursor:pointer;transition:all 0.15s;border-bottom:1px solid var(--border);
+    }
+    .server-dropdown-item:last-child{border-bottom:none}
+    .server-dropdown-item:hover{background:rgba(255,58,58,0.08);color:#fff;padding-left:20px}
+    .server-dropdown-item.selected{color:var(--orange-bright);background:rgba(255,58,58,0.06)}
+    .server-player-count{font-size:11px;color:var(--muted);font-weight:500;font-family:'Oxanium',sans-serif}
+
+    .jewel-hover-wrap{position:relative;display:inline-flex;align-items:center}
+    .jewel-nav-btn{
+      display:inline-flex;align-items:center;gap:7px;padding:0 16px;
+      background:rgba(255,58,58,0.08);border:1px solid rgba(255,58,58,0.22);
+      border-radius:8px;color:var(--orange-bright);font-size:12px;font-weight:700;
+      font-family:'Inter',sans-serif;cursor:pointer;text-decoration:none;
+      transition:all 0.22s;white-space:nowrap;
+    }
+    .jewel-nav-btn:hover{background:rgba(255,58,58,0.15);border-color:var(--orange-bright);transform:translateY(-1px);box-shadow:0 4px 16px rgba(255,58,58,0.2)}
+    .jewel-nav-btn svg{width:15px;height:15px;flex-shrink:0}
+    .jewel-panel{
+      position:absolute;top:calc(100% + 10px);right:0;
+      width:340px;background:rgba(11,8,4,0.96);backdrop-filter:blur(24px) saturate(1.3);
+      border:1px solid rgba(255,58,58,0.28);border-radius:16px;padding:22px;
+      opacity:0;visibility:hidden;transform:translateY(-6px) scale(0.98);
+      transition:all 0.22s cubic-bezier(0.16,1,0.3,1);z-index:300;
+      box-shadow:0 24px 64px rgba(0,0,0,0.8),0 0 0 1px rgba(255,58,58,0.06) inset;
+    }
+    .jewel-hover-wrap:hover .jewel-panel,.jewel-panel:hover{opacity:1;visibility:visible;transform:translateY(0) scale(1)}
+    .jewel-panel-header{display:flex;align-items:center;justify-content:space-between;margin-bottom:8px}
+    .jewel-panel-title{font-family:'Rajdhani',sans-serif;font-size:15px;font-weight:700;letter-spacing:1px;color:var(--orange-bright);display:flex;align-items:center;gap:7px}
+    .jewel-panel-title svg{width:15px;height:15px;flex-shrink:0}
+    .jewel-panel-badge{display:inline-flex;align-items:center;gap:4px;background:rgba(255,58,58,0.12);border:1px solid rgba(255,58,58,0.25);border-radius:6px;padding:3px 8px;font-size:11px;font-weight:700;color:var(--orange-bright)}
+    .jewel-panel-badge svg{width:11px;height:11px}
+    .jewel-panel-sub{font-size:12px;color:var(--muted2);line-height:1.6;margin-bottom:16px}
+    .jewel-panel-section-label{font-size:10px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--orange-bright);margin-bottom:10px;opacity:0.7}
+    .jewel-panel-items{display:flex;flex-direction:column;gap:6px;margin-bottom:18px}
+    .jewel-panel-item{display:flex;align-items:center;gap:10px;font-size:12px;font-weight:600;color:var(--muted2)}
+    .jewel-panel-item-icon{width:30px;height:30px;border-radius:8px;background:rgba(255,58,58,0.08);border:1px solid rgba(255,58,58,0.16);display:flex;align-items:center;justify-content:center;flex-shrink:0}
+    .jewel-panel-item-icon svg{width:14px;height:14px;color:var(--orange-bright)}
+    .jewel-panel-bal{display:flex;align-items:center;justify-content:space-between;background:rgba(255,58,58,0.06);border:1px solid rgba(255,58,58,0.14);border-radius:10px;padding:11px 14px;margin-bottom:14px}
+    .jewel-panel-bal-label{font-size:11px;color:var(--muted);font-weight:600;letter-spacing:0.5px}
+    .jewel-panel-bal-val{font-family:'Oxanium',sans-serif;font-size:18px;font-weight:900;color:var(--orange-bright);display:flex;align-items:center;gap:5px}
+    .jewel-panel-bal-val svg{width:14px;height:14px}
+    .jewel-panel-btn{display:block;width:100%;padding:12px;border-radius:10px;background:linear-gradient(135deg,var(--orange-dim),var(--orange-bright));color:#fff;font-family:'Rajdhani',sans-serif;font-size:13px;font-weight:700;letter-spacing:1px;text-transform:uppercase;text-align:center;text-decoration:none;cursor:pointer;border:none;transition:all 0.22s;box-shadow:0 4px 16px rgba(255,58,58,0.25)}
+    .jewel-panel-btn:hover{background:linear-gradient(135deg,var(--orange-bright),var(--amber));box-shadow:0 8px 28px rgba(255,58,58,0.45);transform:translateY(-1px)}
+
+    .btn-discord{display:inline-flex;align-items:center;gap:8px;padding:0 18px;border-radius:8px;font-size:12px;font-weight:700;cursor:pointer;text-decoration:none;transition:all 0.22s;border:none;font-family:'Inter',sans-serif;background:#5865F2;color:#fff}
+    .btn-discord:hover{background:#4752c4;transform:translateY(-1px);box-shadow:0 8px 24px rgba(88,101,242,0.4)}
+    .btn-discord svg{width:16px;height:16px;flex-shrink:0}
+
+    .user-chip{
+      position:relative;display:inline-flex;align-items:center;gap:8px;
+      padding:0 12px 0 6px;
+      background:rgba(255,255,255,0.04);border:1px solid var(--border-orange);
+      border-radius:8px;cursor:pointer;transition:all 0.22s;user-select:none;
+    }
+    .user-chip:hover{background:rgba(255,58,58,0.08);border-color:var(--orange-bright)}
+    .chip-avatar{width:24px;height:24px;border-radius:50%;object-fit:cover;flex-shrink:0;border:1.5px solid rgba(255,58,58,0.4)}
+    .chip-name{font-size:12px;font-weight:700;color:var(--text);letter-spacing:0.3px;max-width:100px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+    .chip-chevron{width:11px;height:11px;color:var(--muted);transition:transform 0.2s;flex-shrink:0}
+    .user-chip.open .chip-chevron{transform:rotate(180deg)}
+    .user-dropdown{
+      position:absolute;top:calc(100% + 6px);right:0;width:168px;
+      background:rgba(13,9,6,0.96);backdrop-filter:blur(20px);
+      border:1px solid var(--border-orange);border-radius:12px;overflow:hidden;
+      opacity:0;visibility:hidden;transform:translateY(-8px) scale(0.98);
+      transition:all 0.2s cubic-bezier(0.16,1,0.3,1);z-index:300;
+      box-shadow:0 16px 48px rgba(0,0,0,0.7)
+    }
+    .user-dropdown.open{opacity:1;visibility:visible;transform:translateY(0) scale(1)}
+    .user-dropdown-item{display:flex;align-items:center;gap:8px;padding:10px 14px;font-size:12px;font-weight:600;color:var(--muted2);cursor:pointer;transition:all 0.15s;border-bottom:1px solid var(--border);text-decoration:none;white-space:nowrap}
+    .user-dropdown-item:last-child{border-bottom:none}
+    .user-dropdown-item svg{width:14px;height:14px;flex-shrink:0}
+    .user-dropdown-item:hover{background:rgba(255,58,58,0.08);color:#fff}
+    .user-dropdown-item.danger:hover{background:rgba(255,80,80,0.08);color:#f87171}
+    .user-dropdown-item.admin-item{color:var(--orange-bright)}
+    .user-dropdown-item.admin-item:hover{background:rgba(255,58,58,0.1);color:var(--amber)}
+    #nav-login{display:none}
+    #nav-user{display:none}
+
+    .btn{display:inline-flex;align-items:center;gap:7px;padding:9px 22px;border-radius:8px;font-size:12px;font-weight:600;letter-spacing:0.5px;cursor:pointer;text-decoration:none;transition:all 0.22s;border:none;font-family:'Inter',sans-serif}
+    .btn-primary{background:linear-gradient(135deg,var(--orange-dim),var(--orange-bright));color:#fff;box-shadow:0 4px 20px rgba(255,58,58,0.3)}
+    .btn-primary:hover{background:linear-gradient(135deg,var(--orange-bright),var(--amber));transform:translateY(-2px);box-shadow:0 10px 32px rgba(255,58,58,0.5)}
+    .btn-outline{background:rgba(255,255,255,0.04);color:var(--text);border:1px solid var(--border-orange);backdrop-filter:blur(8px)}
+    .btn-outline:hover{border-color:var(--orange-bright);background:rgba(255,58,58,0.08);transform:translateY(-2px)}
+
+    .mobile-topbar{display:none;position:fixed;top:0;left:0;right:0;z-index:200;background:rgba(9,6,3,0.96);backdrop-filter:blur(20px);border-bottom:1px solid var(--border);padding:0 16px;height:58px;align-items:center;justify-content:space-between;gap:10px}
+    .mobile-topbar-logo{font-family:'Oxanium',sans-serif;font-size:20px;font-weight:900;letter-spacing:1px;color:#fff;text-decoration:none;flex-shrink:0}
+    .mobile-topbar-logo span{color:var(--orange-bright)}
+    .mobile-topbar-right{display:flex;align-items:center;gap:8px;flex-shrink:0;position:relative}
+    .mobile-server-selector{position:relative}
+    .mobile-server-btn{display:inline-flex;align-items:center;gap:6px;padding:7px 12px;background:rgba(255,255,255,0.04);border:1px solid var(--border-orange);border-radius:7px;color:var(--text);font-size:11px;font-weight:700;font-family:'Inter',sans-serif;cursor:pointer;white-space:nowrap}
+    .mobile-server-btn svg{width:12px;height:12px;color:var(--orange-bright)}
+    .mobile-server-dropdown{position:absolute;top:calc(100% + 6px);right:0;min-width:210px;background:rgba(13,9,6,0.96);backdrop-filter:blur(20px);border:1px solid var(--border-orange);border-radius:10px;overflow:hidden;opacity:0;visibility:hidden;transform:translateY(-6px);transition:all 0.2s ease;z-index:400}
+    .mobile-server-dropdown.open{opacity:1;visibility:visible;transform:translateY(0)}
+    .mobile-jewel-btn{display:inline-flex;align-items:center;gap:6px;padding:7px 12px;background:rgba(255,58,58,0.08);border:1px solid rgba(255,58,58,0.2);border-radius:7px;color:var(--orange-bright);font-size:11px;font-weight:700;font-family:'Inter',sans-serif;cursor:pointer;text-decoration:none;white-space:nowrap;flex-shrink:0}
+    .mobile-jewel-btn svg{width:13px;height:13px;flex-shrink:0}
+    .mobile-discord-btn{display:inline-flex;align-items:center;gap:6px;padding:7px 12px;border-radius:7px;font-size:11px;font-weight:700;cursor:pointer;text-decoration:none;border:none;font-family:'Inter',sans-serif;background:#5865F2;color:#fff;white-space:nowrap}
+    .mobile-discord-btn svg{width:14px;height:14px;flex-shrink:0}
+    .mobile-user-selector{position:relative}
+    .mobile-user-chip{display:inline-flex;align-items:center;gap:6px;padding:5px 10px 5px 5px;background:rgba(255,255,255,0.04);border:1px solid var(--border-orange);border-radius:7px;cursor:pointer;white-space:nowrap}
+    .mobile-chip-avatar{width:24px;height:24px;border-radius:50%;object-fit:cover;border:1.5px solid rgba(255,58,58,0.4);flex-shrink:0}
+    .mobile-chip-name{font-size:11px;font-weight:700;color:var(--text)}
+    .mobile-user-dropdown{position:absolute;top:calc(100% + 6px);right:0;min-width:168px;background:rgba(13,9,6,0.96);backdrop-filter:blur(20px);border:1px solid var(--border-orange);border-radius:10px;overflow:hidden;opacity:0;visibility:hidden;transform:translateY(-6px);transition:all 0.2s ease;z-index:400;box-shadow:0 10px 32px rgba(0,0,0,0.6)}
+    .mobile-user-dropdown.open{opacity:1;visibility:visible;transform:translateY(0)}
+    #mob-login{display:none}
+    #mob-user{display:none}
+
+    .mobile-nav{display:none;position:fixed;bottom:0;left:0;right:0;z-index:200;background:rgba(9,6,3,0.97);backdrop-filter:blur(20px);border-top:1px solid var(--border);padding:10px 0 max(10px,env(safe-area-inset-bottom))}
+    .mobile-nav-inner{display:flex;justify-content:space-around;align-items:center}
+    .mobile-nav-item{display:flex;flex-direction:column;align-items:center;gap:5px;text-decoration:none;color:var(--muted);transition:color 0.2s;padding:4px 12px;border-radius:10px;min-width:56px}
+    .mobile-nav-item.active{color:var(--orange-bright)}
+    .mobile-nav-item svg{width:22px;height:22px}
+    .mobile-nav-item span{font-size:10px;font-weight:600;letter-spacing:0.5px;text-transform:uppercase}
+
+    #hero{
+      position:relative;min-height:100vh;
+      display:flex;flex-direction:column;align-items:center;justify-content:center;
+      text-align:center;overflow:hidden;padding:120px 24px 120px;
+    }
+
+    .hero-bg{position:absolute;inset:0;z-index:0;overflow:hidden}
+    .hero-bg-base{
+      position:absolute;inset:0;
+      background:
+        radial-gradient(ellipse 80% 60% at 50% -10%, rgba(200,40,40,0.18) 0%, transparent 60%),
+        radial-gradient(ellipse 50% 40% at 15% 90%, rgba(255,58,58,0.06) 0%, transparent 55%),
+        radial-gradient(ellipse 45% 35% at 88% 85%, rgba(255,120,120,0.06) 0%, transparent 50%);
+      animation:fadeIn 1.2s ease both;
+    }
+    .hero-bg-vignette{
+      position:absolute;inset:0;
+      background:radial-gradient(ellipse 100% 100% at 50% 50%, transparent 30%, rgba(8,5,2,0.88) 100%);
+      z-index:1;
+    }
+    .hero-grid{
+      position:absolute;inset:0;z-index:2;
+      background-image:
+        linear-gradient(rgba(255,58,58,0.035) 1px,transparent 1px),
+        linear-gradient(90deg,rgba(255,58,58,0.035) 1px,transparent 1px);
+      background-size:72px 72px;
+      mask-image:radial-gradient(ellipse 85% 85% at 50% 50%, black 10%, transparent 75%);
+      -webkit-mask-image:radial-gradient(ellipse 85% 85% at 50% 50%, black 10%, transparent 75%);
+      animation:fadeIn 1.4s ease 0.2s both;
+    }
+
+    .hero-orb{
+      position:absolute;border-radius:50%;pointer-events:none;z-index:1;
+      filter:blur(90px);
+    }
+    .hero-orb-1{
+      width:600px;height:600px;
+      background:radial-gradient(circle, rgba(200,40,40,0.12) 0%, transparent 70%);
+      top:-200px;left:50%;transform:translateX(-50%);
+      animation:fadeIn 2s ease 0.3s both, orbFloat1 12s ease-in-out infinite 2s;
+    }
+    .hero-orb-2{
+      width:300px;height:300px;
+      background:radial-gradient(circle, rgba(255,120,120,0.07) 0%, transparent 70%);
+      bottom:80px;right:10%;
+      animation:fadeIn 2s ease 0.6s both, orbFloat2 16s ease-in-out infinite 2s;
+    }
+    .hero-orb-3{
+      width:250px;height:250px;
+      background:radial-gradient(circle, rgba(255,58,58,0.06) 0%, transparent 70%);
+      bottom:120px;left:8%;
+      animation:fadeIn 2s ease 0.8s both, orbFloat2 14s ease-in-out infinite 2s reverse;
+    }
+    @keyframes orbFloat1{0%,100%{transform:translateX(-50%) translateY(0)}50%{transform:translateX(-50%) translateY(-30px)}}
+    @keyframes orbFloat2{0%,100%{transform:translateY(0)}50%{transform:translateY(-20px)}}
+
+    .particle{position:absolute;border-radius:50%;pointer-events:none;z-index:3;animation:particleFloat linear infinite;opacity:0}
+    @keyframes particleFloat{0%{transform:translateY(100vh) scale(0);opacity:0}8%{opacity:0.8}88%{opacity:0.4}100%{transform:translateY(-60px) scale(1.2);opacity:0}}
+
+    .hero-content{position:relative;z-index:5;max-width:900px}
+
+    .hero-eyebrow{
+      display:inline-flex;align-items:center;gap:8px;
+      padding:6px 16px;border-radius:100px;
+      background:rgba(255,58,58,0.08);border:1px solid rgba(255,58,58,0.2);
+      font-size:11px;font-weight:700;letter-spacing:2.5px;text-transform:uppercase;
+      color:var(--orange-bright);margin-bottom:28px;
+      animation:fadeUp 0.7s cubic-bezier(0.16,1,0.3,1) 0.15s both;
+    }
+    .hero-eyebrow::before{content:'';width:6px;height:6px;border-radius:50%;background:var(--orange-bright);animation:pulseDot 2s ease-in-out infinite;box-shadow:0 0 8px var(--orange-bright)}
+    @keyframes pulseDot{0%,100%{opacity:1;transform:scale(1)}50%{opacity:0.3;transform:scale(0.5)}}
+
+    .hero-wordmark{
+      font-family:'Oxanium',sans-serif;
+      font-size:clamp(100px,15vw,180px);
+      font-weight:900;letter-spacing:clamp(4px,0.3vw,10px);
+      line-height:0.9;color:#fff;
+      text-shadow:
+        0 0 60px rgba(255,58,58,0.2),
+        0 0 120px rgba(255,58,58,0.08),
+        0 2px 0 rgba(0,0,0,0.5);
+      animation:fadeUp 0.9s cubic-bezier(0.16,1,0.3,1) 0.28s both;
+    }
+
+    .hero-separator{
+      width:min(420px,80%);height:1px;margin:18px auto 20px;
+      background:linear-gradient(90deg,transparent 0%,rgba(255,58,58,0.5) 20%,rgba(255,100,100,0.9) 50%,rgba(255,58,58,0.5) 80%,transparent 100%);
+      animation:lineExpand 0.9s cubic-bezier(0.16,1,0.3,1) 0.55s both;
+    }
+
+    .hero-subtitle-brand{
+      font-family:'Rajdhani',sans-serif;font-size:13px;letter-spacing:8px;
+      color:var(--muted);text-transform:uppercase;margin-bottom:32px;
+      animation:fadeUp 0.8s cubic-bezier(0.16,1,0.3,1) 0.65s both;
+    }
+
+    .hero-tagline{
+      font-size:clamp(15px,1.8vw,17px);color:var(--muted2);
+      line-height:1.85;max-width:520px;margin:0 auto 52px;
+      animation:fadeUp 0.8s cubic-bezier(0.16,1,0.3,1) 0.78s both;
+    }
+    .hero-tagline strong{color:var(--text);font-weight:600}
+
+    .hero-buttons{
+      display:flex;gap:14px;justify-content:center;flex-wrap:wrap;
+      animation:fadeUp 0.8s cubic-bezier(0.16,1,0.3,1) 0.9s both;
+    }
+    .hero-buttons .btn{
+      display:inline-flex;align-items:center;justify-content:center;gap:10px;
+      min-width:200px;padding:15px 32px;border-radius:12px;
+      font-size:14px;font-weight:700;letter-spacing:0.3px;
+    }
+    .hero-buttons .btn svg{width:18px;height:18px;flex-shrink:0}
+
+    .hero-stats{
+      display:flex;align-items:center;justify-content:center;gap:0;
+      margin-top:56px;
+      animation:fadeUp 0.8s cubic-bezier(0.16,1,0.3,1) 1.05s both;
+    }
+    .hero-stat{
+      display:flex;flex-direction:column;align-items:center;gap:4px;
+      padding:0 36px;position:relative;
+    }
+    .hero-stat+.hero-stat::before{
+      content:'';position:absolute;left:0;top:10%;height:80%;
+      width:1px;background:rgba(255,255,255,0.07);
+    }
+    .hero-stat-val{
+      font-family:'Oxanium',sans-serif;font-size:26px;font-weight:900;
+      color:#fff;letter-spacing:1px;
+      text-shadow:0 0 20px rgba(255,58,58,0.3);
+    }
+    .hero-stat-val span{color:var(--orange-bright)}
+    .hero-stat-label{font-size:10px;font-weight:600;letter-spacing:2px;text-transform:uppercase;color:var(--muted)}
+
+    .hero-scroll-hint{
+      position:absolute;bottom:32px;left:0;right:0;z-index:5;
+      display:flex;flex-direction:column;align-items:center;gap:8px;
+      animation:fadeIn 1s ease 1.4s both;pointer-events:none;
+    }
+    .hero-scroll-hint span{font-size:9px;letter-spacing:3px;text-transform:uppercase;color:var(--muted)}
+    .scroll-arrow{width:18px;height:18px;color:var(--muted);animation:scrollBounce 2s ease-in-out infinite}
+    @keyframes scrollBounce{0%,100%{transform:translateY(0)}50%{transform:translateY(7px)}}
+
+    .divider{width:100%;height:1px;background:linear-gradient(90deg,transparent,rgba(255,58,58,0.18),transparent)}
+
+    .section-title{font-family:'Rajdhani',sans-serif;font-size:clamp(28px,4vw,48px);font-weight:700;letter-spacing:2px;margin-bottom:10px;line-height:1.1}
+
+    #leaderboard{background:var(--dark2);padding:110px 0}
+    #leaderboard>.inner{max-width:1060px;margin:0 auto;padding:0 52px}
+    .lb-header{margin-bottom:40px;text-align:center}
+    .lb-header-sub{font-size:14px;color:var(--muted2);margin-top:8px;line-height:1.6}
+
+    .lb-wrap{
+      background:rgba(9,6,3,0.7);
+      border:1px solid rgba(255,58,58,0.16);
+      border-radius:20px;overflow:hidden;
+      backdrop-filter:blur(24px);
+      box-shadow:0 32px 80px rgba(0,0,0,0.5),0 0 0 1px rgba(255,255,255,0.02) inset;
+    }
+    .lb-title-bar{
+      padding:26px 30px 22px;
+      border-bottom:1px solid rgba(255,255,255,0.05);
+      display:flex;align-items:center;justify-content:space-between;
+      background:linear-gradient(135deg,rgba(255,58,58,0.04) 0%,transparent 100%);
+    }
+    .lb-title-bar h3{font-family:'Rajdhani',sans-serif;font-size:22px;font-weight:700;letter-spacing:2px;color:#fff}
+    .lb-title-bar p{font-size:12px;color:var(--muted);margin-top:3px}
+    .lb-live-dot{display:flex;align-items:center;gap:6px;font-size:11px;color:#22c55e;font-weight:700;letter-spacing:1.5px}
+    .lb-live-dot::before{content:'';width:7px;height:7px;background:#22c55e;border-radius:50%;animation:pulseDot 2s ease-in-out infinite;box-shadow:0 0 10px #22c55e}
+    .lb-col-header{
+      display:grid;grid-template-columns:56px 1fr 110px 110px 120px;
+      padding:12px 30px;
+      background:rgba(255,255,255,0.02);border-bottom:1px solid rgba(255,255,255,0.04);
+    }
+    .lb-col-header span{font-size:10px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--muted)}
+    .lb-col-header span:nth-child(3),.lb-col-header span:nth-child(4),.lb-col-header span:nth-child(5){text-align:center}
+    .lb-row{
+      display:grid;grid-template-columns:56px 1fr 110px 110px 120px;
+      padding:16px 30px;
+      border-bottom:1px solid rgba(255,255,255,0.03);
+      align-items:center;transition:background 0.2s ease;cursor:default;
+    }
+    .lb-row:last-child{border-bottom:none}
+    .lb-row:hover{background:rgba(255,58,58,0.05)}
+    .lb-row.top-1{background:linear-gradient(90deg,rgba(255,120,120,0.06) 0%,transparent 60%)}
+    .lb-row.top-1:hover{background:linear-gradient(90deg,rgba(255,120,120,0.1) 0%,transparent 60%)}
+    .lb-row.top-2{background:linear-gradient(90deg,rgba(148,163,184,0.04) 0%,transparent 60%)}
+    .lb-row.top-2:hover{background:linear-gradient(90deg,rgba(148,163,184,0.08) 0%,transparent 60%)}
+    .lb-row.top-3{background:linear-gradient(90deg,rgba(255,58,58,0.04) 0%,transparent 60%)}
+    .lb-row.top-3:hover{background:linear-gradient(90deg,rgba(255,58,58,0.08) 0%,transparent 60%)}
+    .rank-num{font-family:'Rajdhani',sans-serif;font-size:20px;font-weight:700;color:var(--muted)}
+    .rank-num.gold{color:#ff5b5b}
+    .rank-num.silver{color:#94a3b8}
+    .rank-num.bronze{color:var(--orange-dim)}
+    .lb-player{display:flex;align-items:center;gap:12px}
+    .lb-rank-icon{width:32px;height:32px;flex-shrink:0;display:flex;align-items:center;justify-content:center}
+    .lb-rank-icon svg{width:28px;height:28px}
+    .lb-username{font-weight:600;color:var(--text);font-size:14px}
+    .lb-kills{text-align:center;font-weight:700;color:#4ade80;font-size:14px}
+    .lb-deaths{text-align:center;font-weight:700;color:#f87171;font-size:14px}
+    .lb-kdr{text-align:center;font-family:'Oxanium',sans-serif;font-size:16px;font-weight:700;color:var(--orange-bright)}
+    .lb-kdr.kdr-high{color:var(--amber)}
+    .lb-footer{
+      padding:22px 30px;border-top:1px solid rgba(255,255,255,0.04);
+      display:flex;justify-content:center;align-items:center;
+      background:rgba(255,58,58,0.02);
+    }
+    .lb-footer-link{font-size:14px;font-weight:700;color:var(--amber);text-decoration:none;transition:color 0.2s;letter-spacing:0.3px}
+    .lb-footer-link:hover{color:var(--orange-bright);text-decoration:underline}
+    .lb-skeleton{display:grid;grid-template-columns:56px 1fr 110px 110px 120px;padding:16px 30px;border-bottom:1px solid rgba(255,255,255,0.03);align-items:center}
+    .lb-skel-block{height:14px;border-radius:6px;background:linear-gradient(90deg,rgba(255,255,255,0.04) 25%,rgba(255,255,255,0.07) 50%,rgba(255,255,255,0.04) 75%);background-size:200% 100%;animation:shimmer 1.6s infinite}
+    @keyframes shimmer{0%{background-position:200% 0}100%{background-position:-200% 0}}
+
+    .reveal{opacity:0;transform:translateY(28px);transition:opacity 0.8s cubic-bezier(0.16,1,0.3,1),transform 0.8s cubic-bezier(0.16,1,0.3,1)}
+    .reveal.visible{opacity:1;transform:none}
+    .reveal-delay-1{transition-delay:0.1s}
+    .reveal-delay-2{transition-delay:0.2s}
+
+    footer{background:#050301;border-top:1px solid var(--border);padding:72px 52px 36px}
+    .footer-inner{max-width:1200px;margin:0 auto}
+    .footer-top{display:grid;grid-template-columns:1.7fr 1fr 1fr 1fr;gap:52px;margin-bottom:56px}
+    .footer-brand-name{font-family:'Oxanium',sans-serif;font-size:22px;font-weight:900;letter-spacing:1px;color:#fff;margin-bottom:14px}
+    .footer-brand-name span{color:var(--orange-bright)}
+    .footer-brand-desc{font-size:13px;color:var(--muted);line-height:1.8;max-width:240px}
+    .footer-col-title{font-size:10px;font-weight:700;letter-spacing:2.5px;text-transform:uppercase;color:var(--text);margin-bottom:20px;opacity:0.6}
+    .footer-links{list-style:none;display:flex;flex-direction:column;gap:12px}
+    .footer-links a{color:var(--muted);text-decoration:none;font-size:13px;transition:all 0.2s}
+    .footer-links a:hover{color:var(--text);padding-left:4px}
+    .footer-bottom{border-top:1px solid var(--border);padding-top:28px;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:12px}
+    .footer-copy{font-size:12px;color:var(--muted)}
+    .footer-copy span{color:var(--orange-bright)}
+
+    @media(max-width:960px){
+      nav.desktop-nav{display:none}
+      .mobile-topbar{display:flex}
+      .mobile-nav{display:block}
+      body{padding-top:58px;padding-bottom:74px}
+      #hero{padding-top:80px;padding-bottom:100px}
+      #leaderboard>.inner{padding-left:20px;padding-right:20px}
+      .lb-col-header{grid-template-columns:44px 1fr 80px 80px 90px;padding:10px 16px}
+      .lb-row{grid-template-columns:44px 1fr 80px 80px 90px;padding:14px 16px}
+      .lb-skeleton{grid-template-columns:44px 1fr 80px 80px 90px;padding:14px 16px}
+      .lb-title-bar,.lb-footer{padding:18px 16px}
+      .footer-top{grid-template-columns:1fr 1fr}
+      footer{padding:48px 20px 32px}
+      .hero-stats{gap:0}
+      .hero-stat{padding:0 20px}
+    }
+    @media(max-width:560px){
+      .lb-col-header span:nth-child(4){display:none}
+      .lb-row .lb-deaths{display:none}
+      .lb-skeleton .lb-skel-deaths{display:none}
+      .lb-col-header{grid-template-columns:40px 1fr 80px 100px}
+      .lb-row{grid-template-columns:40px 1fr 80px 100px}
+      .lb-skeleton{grid-template-columns:40px 1fr 80px 100px}
+      .footer-top{grid-template-columns:1fr}
+      .hero-buttons .btn{min-width:150px}
+      .hero-stats{flex-wrap:wrap;gap:16px}
+      .hero-stat+.hero-stat::before{display:none}
+    }
+    @media(max-width:400px){
+      .hero-wordmark{font-size:80px;letter-spacing:2px}
+    }
+  </style>
+</head>
+<body>
+
+  <!-- DESKTOP NAV -->
+  <nav class="desktop-nav">
+    <a href="/" class="nav-logo">
+  <span class="logo-s">SPIRALS
+</a>
+    <ul class="nav-links">
+      <li><a href="/">Home</a></li>
+      <li><a href="/store">Store</a></li>
+      <li><a href="/leaderboards">Leaderboards</a></li>
+      <li><a href="/servers">Servers</a></li>
+    </ul>
+    <div class="nav-right">
+
+      <div class="server-selector">
+        <button class="server-selector-btn" id="serverSelectorBtn" onclick="toggleServerDropdown('desktop')">
+          <svg fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M5 12h14M5 12a2 2 0 01-2-2V6a2 2 0 012-2h14a2 2 0 012 2v4a2 2 0 01-2 2M5 12a2 2 0 00-2 2v4a2 2 0 002 2h14a2 2 0 002-2v-4a2 2 0 00-2-2"/></svg>
+          <span id="serverSelectorLabel">Spirals RCE — NA 3x</span>
+          <svg class="chevron" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7"/></svg>
+        </button>
+        <div class="server-dropdown" id="serverDropdown">
+          <div class="server-dropdown-item" onclick="selectServer('Spirals RCE — NA 3x','na3x',this,'desktop')">Spirals RCE — NA 3x <span class="server-player-count" id="nav-pop-na3x">--/--</span></div>
+        </div>
+      </div>
+
+      <div class="jewel-hover-wrap" id="jewelHoverWrap">
+        <a href="/jewels" class="jewel-nav-btn" id="jewelNavBtn">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M6 3h12l4 6-10 13L2 9Z"/><path d="M2 9h20"/><path d="M6 3l4 6m8-6-4 6"/></svg>
+          <span id="jewelNavBal" style="display:none">0</span>
+          <span id="jewelNavLabel">Jewel Store</span>
+        </a>
+        <div class="jewel-panel" id="jewelPanel">
+          <div class="jewel-panel-header">
+            <div class="jewel-panel-title">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M6 3h12l4 6-10 13L2 9Z"/><path d="M2 9h20"/><path d="M6 3l4 6m8-6-4 6"/></svg>
+              Jewel Store
+            </div>
+            <div class="jewel-panel-badge" id="jewelPanelBadgeWrap">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M6 3h12l4 6-10 13L2 9Z"/><path d="M2 9h20"/><path d="M6 3l4 6m8-6-4 6"/></svg>
+              <span id="jewelPanelBadgeCount">0</span>
+            </div>
+          </div>
+          <div class="jewel-panel-sub">Exchange your jewels for exclusive Rust items and gear</div>
+          <div class="jewel-panel-bal" id="jewelPanelBalRow" style="display:none">
+            <span class="jewel-panel-bal-label">Your Balance</span>
+            <span class="jewel-panel-bal-val">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M6 3h12l4 6-10 13L2 9Z"/><path d="M2 9h20"/><path d="M6 3l4 6m8-6-4 6"/></svg>
+              <span id="jewelPanelBal">0</span>
+            </span>
+          </div>
+          <div class="jewel-panel-section-label">Available Items</div>
+          <div class="jewel-panel-items">
+            <div class="jewel-panel-item">
+              <div class="jewel-panel-item-icon">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M14.5 17.5L3 6V3h3l11.5 11.5"/><path d="M13 19l3.5-3.5"/><path d="M16 16l4 4"/><path d="M19 21l2-2"/></svg>
+              </div>
+              Weapons &amp; Tools
+            </div>
+            <div class="jewel-panel-item">
+              <div class="jewel-panel-item-icon">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+              </div>
+              Armor &amp; Protection
+            </div>
+            <div class="jewel-panel-item">
+              <div class="jewel-panel-item-icon">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83-2.83l.06-.06A1.65 1.65 0 0 0 4.68 15a1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 2.83-2.83l.06.06A1.65 1.65 0 0 0 9 4.68a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 2.83l-.06.06A1.65 1.65 0 0 0 19.4 9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg>
+              </div>
+              Components &amp; Materials
+            </div>
+          </div>
+          <a href="/jewels" class="jewel-panel-btn">Browse Jewel Store</a>
+        </div>
+      </div>
+
+      <a href="/auth/discord" id="nav-login" class="btn-discord">
+        <svg viewBox="0 0 24 24" fill="currentColor"><path d="M20.317 4.37a19.791 19.791 0 0 0-4.885-1.515.074.074 0 0 0-.079.037c-.21.375-.444.864-.608 1.25a18.27 18.27 0 0 0-5.487 0 12.64 12.64 0 0 0-.617-1.25.077.077 0 0 0-.079-.037A19.736 19.736 0 0 0 3.677 4.37a.07.07 0 0 0-.032.027C.533 9.046-.32 13.58.099 18.057c.002.022.015.043.03.056a19.9 19.9 0 0 0 5.993 3.03.078.078 0 0 0 .084-.028c.462-.63.874-1.295 1.226-1.994a.076.076 0 0 0-.041-.106 13.107 13.107 0 0 1-1.872-.892.077.077 0 0 1-.008-.128 10.2 10.2 0 0 0 .372-.292.074.074 0 0 1 .077-.01c3.928 1.793 8.18 1.793 12.062 0a.074.074 0 0 1 .078.01c.12.098.246.198.373.292a.077.077 0 0 1-.006.127 12.299 12.299 0 0 1-1.873.892.077.077 0 0 0-.041.107c.36.698.772 1.362 1.225 1.993a.076.076 0 0 0 .084.028 19.839 19.839 0 0 0 6.002-3.03.077.077 0 0 0 .032-.054c.5-5.177-.838-9.674-3.549-13.66a.061.061 0 0 0-.031-.03z"/></svg>
+        Sign In with Discord
+      </a>
+
+      <div class="server-selector" id="nav-user">
+        <div class="user-chip" id="userChipBtn" onclick="toggleUserDropdown()">
+          <img class="chip-avatar" id="chipAvatar" src="" alt="avatar"/>
+          <span class="chip-name" id="chipName">User</span>
+          <svg class="chip-chevron" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7"/></svg>
+        </div>
+        <div class="user-dropdown" id="userDropdown">
+          <div id="adminDropdownItem" style="display:none">
+            <a href="/dashboard" class="user-dropdown-item admin-item">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/><rect x="14" y="14" width="7" height="7" rx="1"/></svg>
+              Admin Dashboard
+            </a>
+          </div>
+          <a href="/inventory" class="user-dropdown-item">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+            Inventory
+          </a>
+          <a href="/auth/logout" class="user-dropdown-item danger">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/><polyline points="16 17 21 12 16 7"/><line x1="21" y1="12" x2="9" y2="12"/></svg>
+            Sign Out
+          </a>
+        </div>
+      </div>
+
+    </div>
+  </nav>
+
+  <!-- MOBILE TOP BAR -->
+  <div class="mobile-topbar">
+    <a href="/" class="mobile-topbar-logo">SPIRALS</a>
+    <div class="mobile-topbar-right">
+      <div class="mobile-server-selector">
+        <button class="mobile-server-btn" id="mobileServerBtn" onclick="toggleServerDropdown('mobile')">
+          <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M5 12h14M5 12a2 2 0 01-2-2V6a2 2 0 012-2h14a2 2 0 012 2v4a2 2 0 01-2 2M5 12a2 2 0 00-2 2v4a2 2 0 002 2h14a2 2 0 002-2v-4a2 2 0 00-2-2"/></svg>
+          <span id="mobileServerLabel">NA 3x</span>
+        </button>
+        <div class="mobile-server-dropdown" id="mobileServerDropdown">
+          <div class="server-dropdown-item" onclick="selectServer('Spirals RCE — NA 3x','na3x',this,'mobile')">Spirals RCE — NA 3x <span class="server-player-count" id="mob-nav-pop-na3x">--/--</span></div>
+        </div>
+      </div>
+
+      <a href="/jewels" class="mobile-jewel-btn">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M6 3h12l4 6-10 13L2 9Z"/><path d="M2 9h20"/><path d="M6 3l4 6m8-6-4 6"/></svg>
+        <span id="mobileJewelLabel">Jewels</span>
+      </a>
+
+      <a href="/auth/discord" id="mob-login" class="mobile-discord-btn">
+        <svg viewBox="0 0 24 24" fill="currentColor"><path d="M20.317 4.37a19.791 19.791 0 0 0-4.885-1.515.074.074 0 0 0-.079.037c-.21.375-.444.864-.608 1.25a18.27 18.27 0 0 0-5.487 0 12.64 12.64 0 0 0-.617-1.25.077.077 0 0 0-.079-.037A19.736 19.736 0 0 0 3.677 4.37a.07.07 0 0 0-.032.027C.533 9.046-.32 13.58.099 18.057c.002.022.015.043.03.056a19.9 19.9 0 0 0 5.993 3.03.078.078 0 0 0 .084-.028c.462-.63.874-1.295 1.226-1.994a.076.076 0 0 0-.041-.106 13.107 13.107 0 0 1-1.872-.892.077.077 0 0 1-.008-.128 10.2 10.2 0 0 0 .372-.292.074.074 0 0 1 .077-.01c3.928 1.793 8.18 1.793 12.062 0a.074.074 0 0 1 .078.01c.12.098.246.198.373.292a.077.077 0 0 1-.006.127 12.299 12.299 0 0 1-1.873.892.077.077 0 0 0-.041.107c.36.698.772 1.362 1.225 1.993a.076.076 0 0 0 .084.028 19.839 19.839 0 0 0 6.002-3.03.077.077 0 0 0 .032-.054c.5-5.177-.838-9.674-3.549-13.66a.061.061 0 0 0-.031-.03z"/></svg>
+        Login
+      </a>
+
+      <div class="mobile-user-selector" id="mob-user">
+        <div class="mobile-user-chip" onclick="toggleMobileUserDropdown()">
+          <img class="mobile-chip-avatar" id="mobChipAvatar" src="" alt="avatar"/>
+          <span class="mobile-chip-name" id="mobChipName">User</span>
+        </div>
+        <div class="mobile-user-dropdown" id="mobileUserDropdown">
+          <div id="mobAdminDropdownItem" style="display:none">
+            <a href="/dashboard" class="user-dropdown-item admin-item">Admin Dashboard</a>
+          </div>
+          <a href="/inventory" class="user-dropdown-item">Inventory</a>
+          <a href="/auth/logout" class="user-dropdown-item danger">Sign Out</a>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- MOBILE BOTTOM NAV -->
+  <nav class="mobile-nav">
+    <div class="mobile-nav-inner">
+      <a href="/" class="mobile-nav-item active" id="mn-home">
+        <svg fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"/></svg>
+        <span>Home</span>
+      </a>
+      <a href="/store" class="mobile-nav-item" id="mn-store">
+        <svg fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z"/></svg>
+        <span>Store</span>
+      </a>
+      <a href="/leaderboards" class="mobile-nav-item" id="mn-lb">
+        <svg fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"/></svg>
+        <span>Boards</span>
+      </a>
+      <a href="/servers" class="mobile-nav-item" id="mn-servers">
+        <svg fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M5 12h14M5 12a2 2 0 01-2-2V6a2 2 0 012-2h14a2 2 0 012 2v4a2 2 0 01-2 2M5 12a2 2 0 00-2 2v4a2 2 0 002 2h14a2 2 0 002-2v-4a2 2 0 00-2-2"/></svg>
+        <span>Servers</span>
+      </a>
+    </div>
+  </nav>
+
+  <!-- HERO -->
+  <section id="hero">
+    <div class="hero-bg">
+      <div class="hero-bg-base"></div>
+      <div class="hero-bg-vignette"></div>
+      <div class="hero-grid"></div>
+      <div class="hero-orb hero-orb-1"></div>
+      <div class="hero-orb hero-orb-2"></div>
+      <div class="hero-orb hero-orb-3"></div>
+    </div>
+    <div id="particles"></div>
+    <div class="hero-content">
+      <div class="hero-wordmark">
+  <span class="logo-s">SPIRALS</span> RCE
+</div>
+      <div class="hero-separator"></div>
+      <div class="hero-subtitle-brand">The Leaders of RCE</div>
+      <p class="hero-tagline">
+        Dominate the competition on <strong>the most advanced Rust community servers.</strong>
+        Track your stats, climb the global leaderboard, and unlock exclusive perks.
+      </p>
+      <div class="hero-buttons">
+        <a href="/store" class="btn btn-primary">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M6 7h12l-1 12H7L6 7Z"/><path stroke-linecap="round" stroke-linejoin="round" d="M9 7V6a3 3 0 0 1 6 0v1"/></svg>
+          Visit Store
+        </a>
+        <a href="/leaderboards" class="btn btn-outline">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M6 3h12v8a6 6 0 0 1-12 0V3Z"/><path d="M6 7H3a2 2 0 0 0 0 4h3"/><path d="M18 7h3a2 2 0 0 1 0 4h-3"/><path d="M12 17v3"/><path d="M8 20h8"/></svg>
+          View Leaderboards
+        </a>
+      </div>
+      <div class="hero-stats">
+        <div class="hero-stat">
+          <div class="hero-stat-val" id="stat-players"><span>0</span></div>
+          <div class="hero-stat-label">Players Online</div>
+        </div>
+        <div class="hero-stat">
+          <div class="hero-stat-val"><span>1.2k+</span></div>
+          <div class="hero-stat-label">Active Members</div>
+        </div>
+      </div>
+    </div>
+    <div class="hero-scroll-hint">
+      <span>Scroll</span>
+      <svg class="scroll-arrow" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+        <path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7"/>
+      </svg>
+    </div>
+  </section>
+
+  <div class="divider"></div>
+
+  <!-- LEADERBOARD -->
+  <div id="leaderboard">
+    <div class="inner">
+      <div class="lb-header reveal">
+        <div class="section-title">Global Leaderboards</div>
+        <p class="lb-header-sub">Top players ranked across all Spirals RCE servers — updated live.</p>
+      </div>
+      <div class="lb-wrap reveal reveal-delay-1">
+        <div class="lb-title-bar">
+          <div><h3>Top Players</h3><p>All Spirals RCE servers</p></div>
+          <div class="lb-live-dot">LIVE</div>
+        </div>
+        <div class="lb-col-header">
+          <span>Rank</span><span>Username</span>
+          <span style="text-align:center">Kills</span>
+          <span style="text-align:center">Deaths</span>
+          <span style="text-align:center">K/D</span>
+        </div>
+        <div id="lb-rows">
+          <div class="lb-skeleton"><div class="lb-skel-block" style="width:24px"></div><div class="lb-skel-block" style="width:120px"></div><div class="lb-skel-block" style="width:40px;margin:0 auto"></div><div class="lb-skel-block lb-skel-deaths" style="width:40px;margin:0 auto"></div><div class="lb-skel-block" style="width:40px;margin:0 auto"></div></div>
+          <div class="lb-skeleton"><div class="lb-skel-block" style="width:24px"></div><div class="lb-skel-block" style="width:100px"></div><div class="lb-skel-block" style="width:40px;margin:0 auto"></div><div class="lb-skel-block lb-skel-deaths" style="width:40px;margin:0 auto"></div><div class="lb-skel-block" style="width:40px;margin:0 auto"></div></div>
+          <div class="lb-skeleton"><div class="lb-skel-block" style="width:24px"></div><div class="lb-skel-block" style="width:140px"></div><div class="lb-skel-block" style="width:40px;margin:0 auto"></div><div class="lb-skel-block lb-skel-deaths" style="width:40px;margin:0 auto"></div><div class="lb-skel-block" style="width:40px;margin:0 auto"></div></div>
+          <div class="lb-skeleton"><div class="lb-skel-block" style="width:24px"></div><div class="lb-skel-block" style="width:110px"></div><div class="lb-skel-block" style="width:40px;margin:0 auto"></div><div class="lb-skel-block lb-skel-deaths" style="width:40px;margin:0 auto"></div><div class="lb-skel-block" style="width:40px;margin:0 auto"></div></div>
+          <div class="lb-skeleton"><div class="lb-skel-block" style="width:24px"></div><div class="lb-skel-block" style="width:90px"></div><div class="lb-skel-block" style="width:40px;margin:0 auto"></div><div class="lb-skel-block lb-skel-deaths" style="width:40px;margin:0 auto"></div><div class="lb-skel-block" style="width:40px;margin:0 auto"></div></div>
+        </div>
+        <div class="lb-footer">
+          <a href="/leaderboards" class="lb-footer-link">View full leaderboards →</a>
+        </div>
+      </div>
+      <div style="text-align:center;margin-top:40px;" class="reveal reveal-delay-2">
+        <p style="font-size:13px;color:var(--muted);margin-bottom:16px;">Want to see your name on the leaderboards?</p>
+        <a href="/servers" class="btn btn-primary" style="font-size:13px;padding:13px 32px;">Join a Server</a>
+      </div>
+    </div>
+  </div>
+
+  <div class="divider"></div>
+
+  <!-- FOOTER -->
+  <footer id="footer">
+    <div class="footer-inner">
+      <div class="footer-top">
+        <div>
+          <div class="footer-brand-name">SPIRALS RCE</div>
+          <p class="footer-brand-desc">Providing the best premium Rust servers since 2024. Compete, climb, and conquer with the Spirals RCE community.</p>
+        </div>
+        <div>
+          <div class="footer-col-title">Navigation</div>
+          <ul class="footer-links">
+            <li><a href="/">Home</a></li>
+            <li><a href="/store">Store</a></li>
+            <li><a href="/leaderboards">Leaderboards</a></li>
+            <li><a href="/servers">Servers</a></li>
+            <li><a href="/jewels">Jewels</a></li>
+          </ul>
+        </div>
+        <div>
+          <div class="footer-col-title">Social</div>
+          <ul class="footer-links">
+            <li><a href="#">Discord</a></li>
+            <li><a href="#">YouTube</a></li>
+            <li><a href="#">Twitter / X</a></li>
+            <li><a href="#">TikTok</a></li>
+          </ul>
+        </div>
+        <div>
+          <div class="footer-col-title">Legal</div>
+          <ul class="footer-links">
+            <li><a href="#">Terms of Service</a></li>
+            <li><a href="#">Privacy Policy</a></li>
+            <li><a href="#">Support</a></li>
+            <li><a href="#">Refund Policy</a></li>
+          </ul>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <p class="footer-copy">© 2025 <span>Spirals RCE Team</span> — Premium Rust servers since 2024</p>
+        <p class="footer-copy">All rights reserved.</p>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    // ── PARTICLES ────────────────────────────────────────────────
+    const particleContainer = document.getElementById('particles');
+    particleContainer.style.cssText = 'position:absolute;inset:0;z-index:3;pointer-events:none';
+    const colors = ['rgba(255,58,58,0.7)','rgba(255,100,100,0.5)','rgba(255,120,120,0.5)','rgba(200,40,40,0.4)'];
+    for (let i = 0; i < 24; i++) {
+      const p = document.createElement('div');
+      p.className = 'particle';
+      const size = Math.random() * 3.5 + 1.5;
+      p.style.cssText = `width:${size}px;height:${size}px;background:${colors[Math.floor(Math.random()*colors.length)]};left:${Math.random()*100}%;animation-duration:${Math.random()*16+12}s;animation-delay:${Math.random()*14}s;filter:blur(${Math.random()>0.6?'1px':'0px'});box-shadow:0 0 ${size*2}px ${colors[0]};`;
+      particleContainer.appendChild(p);
+    }
+
+    // ── SCROLL REVEAL ────────────────────────────────────────────
+    const observer = new IntersectionObserver(entries => {
+      entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); });
+    }, { threshold: 0.07 });
+    document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+
+    // ── SERVER SELECTOR ──────────────────────────────────────────
+    function saveSelectedServer(name, id) {
+      try { localStorage.setItem('spirals_selected_server_name', name); localStorage.setItem('spirals_selected_server_id', id); } catch(e) {}
+    }
+    function loadSelectedServer() {
+      try { return { name: localStorage.getItem('spirals_selected_server_name'), id: localStorage.getItem('spirals_selected_server_id') }; } catch(e) { return {}; }
+    }
+    function toggleServerDropdown(context) {
+      if (context === 'desktop') {
+        document.getElementById('serverSelectorBtn').classList.toggle('open');
+        document.getElementById('serverDropdown').classList.toggle('open');
+      } else {
+        document.getElementById('mobileServerDropdown').classList.toggle('open');
+      }
+    }
+    function selectServer(name, id, el, context) {
+      const shortName = name.split('—')[1]?.trim() || name;
+      document.getElementById('serverSelectorLabel').textContent = name;
+      document.getElementById('mobileServerLabel').textContent = shortName;
+      document.querySelectorAll('.server-dropdown-item').forEach(i => {
+        i.classList.remove('selected');
+        const txt = i.childNodes[0]?.textContent?.trim() || '';
+        if (txt.includes(shortName)) i.classList.add('selected');
+      });
+      saveSelectedServer(name, id);
+      document.getElementById('serverSelectorBtn')?.classList.remove('open');
+      document.getElementById('serverDropdown')?.classList.remove('open');
+      document.getElementById('mobileServerDropdown')?.classList.remove('open');
+    }
+
+    // ── SERVER POPULATIONS ───────────────────────────────────────
+    async function fetchNavServerPop(serverId) {
+      const desktopEl = document.getElementById(`nav-pop-${serverId}`);
+      const mobileEl  = document.getElementById(`mob-nav-pop-${serverId}`);
+      if (!desktopEl && !mobileEl) return null;
+      try {
+        const res = await fetch(`/api/public/servers/${serverId}/info`, { cache: 'no-store' });
+        if (!res.ok) { [desktopEl,mobileEl].forEach(el=>el&&(el.textContent='offline')); return null; }
+        const data = await res.json();
+        const players    = Number(data.players ?? data.playerCount ?? data.online ?? data?.server?.players ?? 0);
+        const maxPlayers = Number(data.maxPlayers ?? data.max ?? data.slots ?? data?.server?.maxPlayers ?? 0);
+        const queued     = Number(data.queued ?? data.queue ?? data?.server?.queued ?? 0);
+        const text = queued > 0 ? `${players}/${maxPlayers} +${queued}Q` : `${players}/${maxPlayers}`;
+        if (desktopEl) desktopEl.textContent = text;
+        if (mobileEl)  mobileEl.textContent  = text;
+        return { players, maxPlayers, queued };
+      } catch(err) {
+        [desktopEl,mobileEl].forEach(el=>el&&(el.textContent='offline'));
+        return null;
+      }
+    }
+
+    async function refreshNavServerPops() {
+      const results = await Promise.all([
+        fetchNavServerPop('na3x'),
+        fetchNavServerPop('eu2x'),
+      ]);
+      // Players Online = sum of players + queued across all servers
+      const total = results.reduce((acc, r) => {
+        if (!r) return acc;
+        return acc + (r.players || 0) + (r.queued || 0);
+      }, 0);
+      const statEl = document.getElementById('stat-players');
+      if (statEl) statEl.innerHTML = `<span>${total}</span>`;
+    }
+
+    // ── AUTH ─────────────────────────────────────────────────────
+    async function initAuth() {
+      try {
+        const res  = await fetch('/api/me');
+        const data = await res.json();
+        if (data.loggedIn) {
+          const u = data.user;
+          document.getElementById('chipAvatar').src = u.avatar;
+          document.getElementById('chipName').textContent = u.globalName || u.username;
+          document.getElementById('nav-login').style.display = 'none';
+          document.getElementById('nav-user').style.display  = 'block';
+          document.getElementById('mobChipAvatar').src = u.avatar;
+          document.getElementById('mobChipName').textContent = u.globalName || u.username;
+          document.getElementById('mob-login').style.display = 'none';
+          document.getElementById('mob-user').style.display  = 'inline-flex';
+          if (data.hasDashboard) {
+            document.getElementById('adminDropdownItem').style.display    = 'block';
+            document.getElementById('mobAdminDropdownItem').style.display = 'block';
+          }
+          try {
+            const gr = await fetch('/api/jewels/balance');
+            const gd = await gr.json();
+            if (gd.ok) {
+              const bal = gd.balance;
+              document.getElementById('jewelNavBal').style.display  = 'inline';
+              document.getElementById('jewelNavBal').textContent    = bal.toLocaleString();
+              document.getElementById('jewelNavLabel').textContent  = 'Jewels';
+              document.getElementById('jewelPanelBalRow').style.display = 'flex';
+              document.getElementById('jewelPanelBal').textContent      = bal.toLocaleString();
+              document.getElementById('jewelPanelBadgeCount').textContent = bal.toLocaleString();
+              document.getElementById('mobileJewelLabel').textContent = bal.toLocaleString();
+            }
+          } catch {}
+        } else {
+          document.getElementById('nav-login').style.display = 'inline-flex';
+          document.getElementById('mob-login').style.display = 'inline-flex';
+        }
+      } catch {
+        document.getElementById('nav-login').style.display = 'inline-flex';
+        document.getElementById('mob-login').style.display = 'inline-flex';
+      }
+    }
+
+    // ── USER DROPDOWN ────────────────────────────────────────────
+    function toggleUserDropdown() {
+      document.getElementById('userChipBtn').classList.toggle('open');
+      document.getElementById('userDropdown').classList.toggle('open');
+    }
+    function toggleMobileUserDropdown() {
+      document.getElementById('mobileUserDropdown').classList.toggle('open');
+    }
+
+    // ── CLOSE ON OUTSIDE CLICK ───────────────────────────────────
+    document.addEventListener('click', e => {
+      const deskSel = document.querySelector('nav.desktop-nav .server-selector:first-of-type');
+      if (deskSel && !deskSel.contains(e.target)) {
+        document.getElementById('serverSelectorBtn')?.classList.remove('open');
+        document.getElementById('serverDropdown')?.classList.remove('open');
+      }
+      const userWrap = document.getElementById('nav-user');
+      if (userWrap && !userWrap.contains(e.target)) {
+        document.getElementById('userChipBtn')?.classList.remove('open');
+        document.getElementById('userDropdown')?.classList.remove('open');
+      }
+      const mobSrvSel = document.querySelector('.mobile-server-selector');
+      if (mobSrvSel && !mobSrvSel.contains(e.target)) document.getElementById('mobileServerDropdown')?.classList.remove('open');
+      const mobUsrSel = document.querySelector('.mobile-user-selector');
+      if (mobUsrSel && !mobUsrSel.contains(e.target)) document.getElementById('mobileUserDropdown')?.classList.remove('open');
+    });
+
+    // ── MOBILE NAV ACTIVE ────────────────────────────────────────
+    const sections = ['hero','leaderboard','footer'];
+    const navMap   = { hero:'mn-home', leaderboard:'mn-lb', footer:'mn-servers' };
+    window.addEventListener('scroll', () => {
+      let current = 'hero';
+      sections.forEach(id => {
+        const el = document.getElementById(id);
+        if (el && window.scrollY >= el.offsetTop - 200) current = id;
+      });
+      document.querySelectorAll('.mobile-nav-item').forEach(el => el.classList.remove('active'));
+      const active = document.getElementById(navMap[current]);
+      if (active) active.classList.add('active');
+    }, { passive: true });
+
+    // ── LEADERBOARD ──────────────────────────────────────────────
+    function rankIconSVG(rank) {
+      if (rank === 1) return `<svg viewBox="0 0 28 28" fill="none"><circle cx="14" cy="16" r="10" fill="#ff5b5b" fill-opacity="0.15" stroke="#ff5b5b" stroke-width="1.5"/><circle cx="14" cy="16" r="7" fill="#ff5b5b" fill-opacity="0.25"/><text x="14" y="21" text-anchor="middle" font-family="Rajdhani,sans-serif" font-weight="700" font-size="9" fill="#ff5b5b">1</text><path d="M10 8 L14 2 L18 8" stroke="#ff5b5b" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round" fill="none"/></svg>`;
+      if (rank === 2) return `<svg viewBox="0 0 28 28" fill="none"><circle cx="14" cy="16" r="10" fill="#94a3b8" fill-opacity="0.12" stroke="#94a3b8" stroke-width="1.5"/><circle cx="14" cy="16" r="7" fill="#94a3b8" fill-opacity="0.2"/><text x="14" y="21" text-anchor="middle" font-family="Rajdhani,sans-serif" font-weight="700" font-size="9" fill="#94a3b8">2</text><path d="M10 8 L14 2 L18 8" stroke="#94a3b8" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round" fill="none"/></svg>`;
+      if (rank === 3) return `<svg viewBox="0 0 28 28" fill="none"><circle cx="14" cy="16" r="10" fill="#a72a2a" fill-opacity="0.12" stroke="#a72a2a" stroke-width="1.5"/><circle cx="14" cy="16" r="7" fill="#a72a2a" fill-opacity="0.2"/><text x="14" y="21" text-anchor="middle" font-family="Rajdhani,sans-serif" font-weight="700" font-size="9" fill="#a72a2a">3</text><path d="M10 8 L14 2 L18 8" stroke="#a72a2a" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round" fill="none"/></svg>`;
+      const fs = rank >= 10 ? '9' : '10';
+      return `<svg viewBox="0 0 28 28" fill="none"><circle cx="14" cy="14" r="10" fill="rgba(139,92,46,0.1)" stroke="rgba(139,92,46,0.35)" stroke-width="1.3"/><text x="14" y="19" text-anchor="middle" font-family="Rajdhani,sans-serif" font-weight="700" font-size="${fs}" fill="#8c6f5a">${rank}</text></svg>`;
+    }
+    function rankNumClass(rank) {
+      if (rank === 1) return 'rank-num gold';
+      if (rank === 2) return 'rank-num silver';
+      if (rank === 3) return 'rank-num bronze';
+      return 'rank-num';
+    }
+    function rowClass(rank) {
+      if (rank === 1) return 'lb-row top-1';
+      if (rank === 2) return 'lb-row top-2';
+      if (rank === 3) return 'lb-row top-3';
+      return 'lb-row';
+    }
+    function escapeHtml(str) {
+      return String(str).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
+    }
+    function buildRows(players) {
+      return players.map((p, i) => {
+        const rank = i + 1;
+        const kdr  = p.deaths > 0 ? (p.kills / p.deaths).toFixed(2) : p.kills.toFixed(2);
+        const kdrClass = parseFloat(kdr) >= 3 ? 'lb-kdr kdr-high' : 'lb-kdr';
+        return `<div class="${rowClass(rank)}">
+          <div class="${rankNumClass(rank)}">${rank}</div>
+          <div class="lb-player">
+            <div class="lb-rank-icon">${rankIconSVG(rank)}</div>
+            <div class="lb-username">${escapeHtml(p.name)}</div>
+          </div>
+          <div class="lb-kills">${p.kills.toLocaleString()}</div>
+          <div class="lb-deaths">${p.deaths.toLocaleString()}</div>
+          <div class="${kdrClass}">${kdr}</div>
+        </div>`;
+      }).join('');
+    }
+    async function loadLeaderboard() {
+      try {
+        const res  = await fetch('/api/leaderboard/kills');
+        const data = await res.json();
+        const merged = {};
+        for (const sid of Object.keys(data)) {
+          const players = data[sid].players || {};
+          for (const key of Object.keys(players)) {
+            const p = players[key];
+            const name = p.name || key;
+            const lk   = name.toLowerCase();
+            if (!merged[lk]) merged[lk] = { name, kills: 0, deaths: 0 };
+            merged[lk].kills  += Number(p.kills  || 0);
+            merged[lk].deaths += Number(p.deaths || 0);
+          }
+        }
+        const sorted = Object.values(merged).sort((a, b) => b.kills - a.kills).slice(0, 10);
+        const container = document.getElementById('lb-rows');
+        if (!sorted.length) {
+          container.innerHTML = `<div style="padding:40px;text-align:center;color:var(--muted);font-size:13px;line-height:1.7;">No data yet — start playing to appear here!</div>`;
+          return;
+        }
+        container.innerHTML = buildRows(sorted);
+      } catch {
+        document.getElementById('lb-rows').innerHTML = `<div style="padding:40px;text-align:center;color:var(--muted);font-size:13px;">Could not load leaderboard data.</div>`;
+      }
+    }
+
+    // ── INIT ─────────────────────────────────────────────────────
+    window.addEventListener('load', () => {
+      const saved = loadSelectedServer ? loadSelectedServer() : { name: localStorage.getItem('spirals_selected_server_name') || '' };
+      const defaultName = 'Spirals RCE — NA 3x';
+      const chosenName = (saved?.name || defaultName).toString();
+      const valid = Array.from(document.querySelectorAll('.server-dropdown-item')).some(item => {
+        const txt = item.childNodes[0]?.textContent?.trim() || '';
+        return txt === chosenName;
+      });
+      const activeName = valid ? chosenName : defaultName;
+      document.getElementById('serverSelectorLabel').textContent = activeName;
+      document.getElementById('mobileServerLabel').textContent = activeName.split('—')[1]?.trim() || 'NA 3x';
+      if (!valid) {
+        try { localStorage.setItem('spirals_selected_server_name', activeName); } catch {}
+      }
+      document.querySelectorAll('.server-dropdown-item').forEach(item => {
+        const txt = item.childNodes[0]?.textContent?.trim() || '';
+        if (txt === activeName) item.classList.add('selected');
+      });
+      refreshNavServerPops();
+      setInterval(refreshNavServerPops, 5000);
+    });
+
+    initAuth();
+    loadLeaderboard();
+    setInterval(loadLeaderboard, 30_000);
+  </script>
+</body>
+</html>

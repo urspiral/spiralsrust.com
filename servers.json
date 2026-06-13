@@ -1,0 +1,16 @@
+{
+  "servers": [
+    {
+      "id": "na3x",
+      "label": "NA 3x",
+      "tag": "3X | MODDED",
+      "rcon": {
+        "host": "147.93.161.107",
+        "port": 28316,
+        "password": "spiralsprl"
+      },
+      "state": ["3x", "modded"],
+      "color": "#f97316"
+    }
+  ]
+}

@@ -1,0 +1,16 @@
+[
+  {
+    "code": "6575",
+    "amount": 57,
+    "currency": "usd",
+    "active": true,
+    "note": ""
+  },
+  {
+    "code": "spiral",
+    "amount": 60,
+    "currency": "usd",
+    "active": true,
+    "note": "h"
+  }
+]

@@ -1,0 +1,9 @@
+[
+  {
+    "code": "sprial",
+    "amount": 90,
+    "type": "fixed",
+    "serverId": null,
+    "active": true
+  }
+]

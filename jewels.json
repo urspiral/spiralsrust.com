@@ -1,0 +1,16 @@
+{
+  "1431760554032238805": {
+    "balance": 0,
+    "totalEarned": 2224750,
+    "totalSpent": 2225432,
+    "updatedAt": "2026-06-11T20:15:34.813Z",
+    "lastAwardedPlaytimeSeconds": 7200
+  },
+  "1228826140768997476": {
+    "balance": 999843,
+    "totalEarned": 11112111111131,
+    "totalSpent": 11112110111288,
+    "updatedAt": "2026-06-12T19:10:00.398Z",
+    "lastAwardedPlaytimeSeconds": 7200
+  }
+}

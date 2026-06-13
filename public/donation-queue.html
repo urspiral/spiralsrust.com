@@ -1,0 +1,316 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Donation Queue | Spirals RCE</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      color-scheme: dark;
+      --bg: #09070b;
+      --surface: rgba(20, 15, 27, 0.96);
+      --surface-strong: rgba(255, 255, 255, 0.04);
+      --border: rgba(255, 255, 255, 0.08);
+      --text: #f5f3f7;
+      --muted: #9ca3af;
+      --accent: #f97316;
+      --accent2: #10b981;
+      --radius: 18px;
+    }
+    * { box-sizing: border-box; }
+    body { margin:0; min-height:100vh; font-family:'Inter',sans-serif; background: radial-gradient(circle at top, rgba(249,115,22,.12), transparent 22%), radial-gradient(circle at bottom, rgba(16,185,129,.09), transparent 18%), var(--bg); color: var(--text); }
+    a { color: var(--accent); text-decoration: none; }
+    .page { max-width: 1200px; margin: 0 auto; padding: 24px; }
+    header { display: flex; flex-wrap: wrap; justify-content: space-between; align-items: center; gap: 16px; margin-bottom: 24px; }
+    header h1 { margin: 0; font-size: clamp(2rem, 1.8rem + 1vw, 2.8rem); }
+    header p { margin: 0; color: var(--muted); max-width: 720px; }
+    .button { border: none; border-radius: 999px; padding: 12px 18px; cursor: pointer; font-weight: 700; transition: transform .15s ease, background .2s ease; }
+    .button-primary { background: var(--accent); color: #0b0a0d; }
+    .button-secondary { background: rgba(255,255,255,.08); color: var(--text); }
+    .button-danger { background: #ef4444; color: #fff; }
+    .button:hover { transform: translateY(-1px); }
+    .grid { display: grid; gap: 18px; }
+    .grid-2 { grid-template-columns: 1fr 1fr; }
+    .card { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); padding: 24px; box-shadow: 0 20px 60px rgba(0,0,0,.2); }
+    .field { display: grid; gap: 8px; margin-bottom: 16px; }
+    .field label { font-size: .82rem; color: var(--muted); text-transform: uppercase; letter-spacing: .08em; }
+    .field input, .field textarea, .field select { width: 100%; border-radius: 14px; border: 1px solid rgba(255,255,255,.08); background: rgba(255,255,255,.04); color: var(--text); padding: 14px 16px; font: inherit; outline: none; }
+    .field textarea { min-height: 120px; resize: vertical; }
+    .note { color: var(--muted); margin-top: -10px; margin-bottom: 16px; }
+    table { width: 100%; border-collapse: collapse; margin-top: 16px; }
+    th, td { padding: 14px 12px; text-align: left; border-bottom: 1px solid rgba(255,255,255,.08); font-size: .95rem; }
+    th { color: var(--muted); font-weight: 600; text-transform: uppercase; letter-spacing: .06em; }
+    .status-chip { display: inline-flex; align-items:center; gap:6px; padding:4px 10px; border-radius:999px; font-size:.8rem; background: rgba(255,255,255,.06); }
+    .status-checkout { color:#f9a8d4; }
+    .status-paid { color:#34d399; }
+    .status-in-progress { color:#60a5fa; }
+    .status-completed { color:#a78bfa; }
+    .status-cancelled { color:#f87171; }
+    .toast { position: fixed; left:50%; top:24px; transform: translateX(-50%); min-width:260px; padding:14px 18px; border-radius:14px; background: rgba(15,23,42,.95); color:#fff; z-index:1000; box-shadow:0 20px 60px rgba(0,0,0,.25); opacity:0; transition: opacity .2s ease; }
+    .toast.visible { opacity:1; }
+    @media (max-width: 900px) { .grid-2 { grid-template-columns: 1fr; } }
+  </style>
+</head>
+<body>
+  <div class="page">
+    <header>
+      <div>
+        <h1>Donation Queue</h1>
+        <p>Join the queue with a donation request and track the queue position in real time. Admins can manage requests from the same page.</p>
+      </div>
+      <div>
+        <a href="/" class="button button-secondary">Back to Home</a>
+      </div>
+    </header>
+
+    <div class="card" id="accountCard">
+      <div id="accountSection"></div>
+    </div>
+
+    <div class="grid grid-2" style="margin-top:24px;">
+      <div class="card">
+        <h2 style="margin-top:0;">Submit a Donation</h2>
+        <div class="field">
+          <label>Amount</label>
+          <input id="donationAmount" type="number" step="0.01" min="0.5" placeholder="5.00" />
+        </div>
+        <div class="field">
+          <label>Currency</label>
+          <input id="donationCurrency" placeholder="usd" value="usd" />
+        </div>
+        <div class="field">
+          <label>Server / Queue Note</label>
+          <input id="donationServerInfo" placeholder="NA 3x, 2x, or custom queue request" />
+        </div>
+        <div class="field">
+          <label>Note for admins</label>
+          <textarea id="donationNote" placeholder="What do you need? e.g. queue jump, support request, account help"></textarea>
+        </div>
+        <div class="note">You will be redirected to Stripe to complete payment. The queue request is created before checkout so it is preserved in the system.</div>
+        <button id="donateBtn" class="button button-primary">Donate and Join Queue</button>
+      </div>
+      <div class="card" id="queueSummaryCard">
+        <h2 style="margin-top:0;">Your Queue Requests</h2>
+        <div id="myRequests"></div>
+      </div>
+    </div>
+
+    <div class="card" style="margin-top:24px;">
+      <div style="display:flex; align-items:center; justify-content:space-between; gap:14px; flex-wrap:wrap;">
+        <div>
+          <h2 style="margin-top:0;">Live Queue</h2>
+          <p class="note">All open requests are shown below. Admins can update status directly.</p>
+        </div>
+        <button id="refreshQueueBtn" class="button button-secondary">Refresh Queue</button>
+      </div>
+      <div style="overflow-x:auto;">
+        <table id="queueTable">
+          <thead>
+            <tr><th>Position</th><th>User</th><th>Amount</th><th>Status</th><th>Request</th><th>Server</th><th>Created</th><th>Actions</th></tr>
+          </thead>
+          <tbody></tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+  <div id="toastContainer"></div>
+
+  <script>
+    let currentUser = null;
+    let hasAdminAccess = false;
+
+    function showToast(message) {
+      const toast = document.createElement('div');
+      toast.className = 'toast';
+      toast.textContent = message;
+      document.getElementById('toastContainer').appendChild(toast);
+      setTimeout(() => toast.classList.add('visible'), 10);
+      setTimeout(() => { toast.classList.remove('visible'); setTimeout(() => toast.remove(), 200); }, 3400);
+    }
+
+    function statusLabel(status) {
+      const labels = {
+        checkout: 'Checkout',
+        paid: 'Paid',
+        pending: 'Pending',
+        'in-progress': 'In Progress',
+        completed: 'Completed',
+        cancelled: 'Cancelled'
+      };
+      return labels[status] || status || 'Unknown';
+    }
+
+    function statusClass(status) {
+      return `status-chip status-${String(status || '').replace(/\s+/g, '-').toLowerCase()}`;
+    }
+
+    function formatDate(iso) {
+      if (!iso) return '-';
+      const d = new Date(iso);
+      return d.toLocaleString();
+    }
+
+    async function fetchAccount() {
+      try {
+        const res = await fetch('/api/me');
+        const data = await res.json();
+        currentUser = data.loggedIn ? data.user : null;
+        hasAdminAccess = data.hasDashboard === true;
+        renderAccount();
+      } catch (err) {
+        currentUser = null;
+        renderAccount();
+      }
+    }
+
+    function renderAccount() {
+      const accountSection = document.getElementById('accountSection');
+      if (!currentUser) {
+        accountSection.innerHTML = `<div style="display:flex;flex-wrap:wrap;gap:12px;align-items:center;justify-content:space-between;"><div><strong>Not signed in</strong><div class="note">Sign in with Discord to submit a donation request.</div></div><div><a href="/auth/discord?returnTo=/donation-queue" class="button button-primary">Sign in with Discord</a></div></div>`;
+        document.getElementById('donateBtn').disabled = true;
+      } else {
+        accountSection.innerHTML = `<div style="display:flex;flex-wrap:wrap;gap:12px;align-items:center;justify-content:space-between;"><div><strong>${currentUser.globalName || currentUser.username}</strong> • ${currentUser.id}<div class="note">Discord account connected.</div></div><div><a href="/auth/logout" class="button button-secondary">Log out</a></div></div>`;
+        document.getElementById('donateBtn').disabled = false;
+      }
+    }
+
+    async function loadQueue() {
+      try {
+        const res = await fetch('/api/donation-queue');
+        const items = await res.json();
+        renderQueue(items);
+        if (currentUser) renderMyRequests(items.filter(item => item.discordId === currentUser.id));
+      } catch (err) {
+        showToast('Failed to load queue');
+        console.error(err);
+      }
+    }
+
+    function renderMyRequests(items) {
+      const container = document.getElementById('myRequests');
+      if (!currentUser) {
+        container.innerHTML = '<p class="note">Sign in to see your queue requests.</p>';
+        return;
+      }
+      if (!items.length) {
+        container.innerHTML = '<p class="note">You have no requests yet.</p>';
+        return;
+      }
+      container.innerHTML = items.map(item => `
+        <div style="margin-bottom:16px;padding:16px;border:1px solid rgba(255,255,255,.08);border-radius:14px;background:rgba(255,255,255,.03);">
+          <div style="display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap;"><strong>${statusLabel(item.status)}</strong><span>${formatDate(item.createdAt)}</span></div>
+          <div><span style="color:var(--muted);">Amount:</span> ${item.currency.toUpperCase()} ${Number(item.amount).toFixed(2)}</div>
+          <div><span style="color:var(--muted);">Note:</span> ${item.note || 'No note provided.'}</div>
+          <div><span style="color:var(--muted);">Server:</span> ${item.serverInfo || 'None'}</div>
+        </div>
+      `).join('');
+    }
+
+    function renderQueue(items) {
+      const tbody = document.querySelector('#queueTable tbody');
+      tbody.innerHTML = items.map((item, index) => {
+        const canManage = hasAdminAccess;
+        const actions = canManage ? `
+          <button class="button button-secondary" data-action="status" data-id="${item.id}">Update</button>
+          <button class="button button-danger" data-action="delete" data-id="${item.id}">Delete</button>
+        ` : '-';
+        return `
+          <tr>
+            <td>#${index + 1}</td>
+            <td>${item.discordUsername || item.discordId}</td>
+            <td>${item.currency.toUpperCase()} ${Number(item.amount).toFixed(2)}</td>
+            <td><span class="${statusClass(item.status)}">${statusLabel(item.status)}</span></td>
+            <td>${item.note ? item.note.replace(/</g,'&lt;') : '-'}</td>
+            <td>${item.serverInfo || '-'}</td>
+            <td>${formatDate(item.createdAt)}</td>
+            <td>${actions}</td>
+          </tr>
+        `;
+      }).join('');
+      tbody.querySelectorAll('button[data-action="status"]').forEach(btn => {
+        btn.addEventListener('click', () => openStatusEditor(btn.dataset.id));
+      });
+      tbody.querySelectorAll('button[data-action="delete"]').forEach(btn => {
+        btn.addEventListener('click', () => deleteRequest(btn.dataset.id));
+      });
+    }
+
+    async function openStatusEditor(id) {
+      const status = prompt('Enter new status (checkout, paid, pending, in-progress, completed, cancelled):');
+      if (!status) return;
+      const adminNote = prompt('Optional admin note:') || '';
+      try {
+        const res = await fetch(`/api/donation-queue/${encodeURIComponent(id)}`, {
+          method: 'PATCH',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ status, adminNote })
+        });
+        if (!res.ok) {
+          const data = await res.json();
+          throw new Error(data.error || 'Update failed');
+        }
+        showToast('Queue request updated');
+        loadQueue();
+      } catch (err) {
+        showToast(err.message || 'Update failed');
+      }
+    }
+
+    async function deleteRequest(id) {
+      if (!confirm('Delete this queue request?')) return;
+      try {
+        const res = await fetch(`/api/donation-queue/${encodeURIComponent(id)}`, { method: 'DELETE' });
+        if (!res.ok) throw new Error('Delete failed');
+        showToast('Removed request');
+        loadQueue();
+      } catch (err) {
+        showToast(err.message || 'Delete failed');
+      }
+    }
+
+    async function submitDonation() {
+      const amount = Number(document.getElementById('donationAmount').value || 0);
+      const currency = document.getElementById('donationCurrency').value.trim() || 'usd';
+      const note = document.getElementById('donationNote').value.trim();
+      const serverInfo = document.getElementById('donationServerInfo').value.trim();
+      if (!currentUser) {
+        window.location.href = '/auth/discord?returnTo=/donation-queue';
+        return;
+      }
+      if (!amount || amount <= 0) return showToast('Enter a donation amount.');
+      try {
+        document.getElementById('donateBtn').disabled = true;
+        const res = await fetch('/api/donation-queue', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ amount, currency, note, serverInfo })
+        });
+        const data = await res.json();
+        if (!res.ok) throw new Error(data.error || 'Donation creation failed');
+        window.location.href = data.url;
+      } catch (err) {
+        showToast(err.message || 'Failed to start donation');
+        console.error(err);
+      } finally {
+        document.getElementById('donateBtn').disabled = false;
+      }
+    }
+
+    document.getElementById('donateBtn').addEventListener('click', submitDonation);
+    document.getElementById('refreshQueueBtn').addEventListener('click', loadQueue);
+
+    async function init() {
+      await fetchAccount();
+      await loadQueue();
+      const success = new URLSearchParams(location.search).get('success');
+      if (success === '1') {
+        showToast('Donation successful! Your queue request has been updated.');
+        window.history.replaceState({}, '', '/donation-queue');
+      }
+    }
+
+    init();
+  </script>
+</body>
+</html>
